@@ -7,11 +7,13 @@
 | `docs/01_research.md` | 1단계 자료조사: 세이브에서 해독한 사실 + 위키 수치 (설계의 유일한 근거) |
 | `docs/02_design.md` | 설계 v3: 킬존 9층, 전투 교리, 배치, 검증, 단계별 순서 |
 | `docs/03_enemy_ai.md` | 적 AI 조사(1.6 디컴파일 소스 요약) + 공병·돌파 경로 모의 실험 |
+| `docs/04_stress_test.md` | 킬존 v4 스트레스 테스트: 적 조합별 몬테카를로 결과, 원인, 개선안 |
 | `blueprint/layout_v3.json` | 모든 공간·문·되메움·킬존 요소·야외 시설 좌표 + 검증 수치 |
 | `blueprint/validation_report.txt` | 검증 스크립트 출력 원문 (12개 검사) |
 | `blueprint/raid_sim_report.txt`, `raid_sim_v3.json` | 공병·돌파 경로 모의 실험 결과 |
 | `blueprint/drop_sim_report.txt`, `drop_sim_v3.json` | 드롭포드(중앙 투하) 착륙 가능성 분석 |
 | `blueprint/standoff_report.txt`, `standoff_v3.json` | 사선·엄폐 분석 + 비대칭 화망 검사(E1 엿보기 0, E2 사거리 30.9 밖 사선 0; 실패 시 종료코드 1) |
+| `blueprint/stress_report.txt`, `stress_v4.json` | 스트레스 테스트 원문 (조건마다 200회) |
 | `blueprint/core_v3.png`, `killzone_v3.png`, `overview_v3.png` | 실제 지형 위 배치도 |
 | `planner/index.html` | 인터랙티브 설계도 (단계·레이어·사선 토글, 좌표 검사기) |
 
@@ -28,6 +30,7 @@ python3 -I tools/design.py arr.pkl things.pkl blueprint          # 배치 정의
 python3 -I tools/raid_sim.py arr.pkl things.pkl blueprint/layout_v3.json blueprint/raid_sim_v3.json   # 공병·돌파 경로 모의 실험
 python3 -I tools/drop_sim.py arr.pkl blueprint/layout_v3.json blueprint/drop_sim_v3.json      # 드롭포드 착륙 분석
 python3 -I tools/standoff_sim.py arr.pkl blueprint/layout_v3.json blueprint/standoff_v3.json > blueprint/standoff_report.txt   # 사선·엄폐
+python3 -I tools/stress_sim.py arr.pkl blueprint/layout_v3.json blueprint/stress_v4.json 200 > blueprint/stress_report.txt   # 스트레스 테스트
 python3 -I tools/render.py arr.pkl blueprint/layout_v3.json blueprint/core_v3.png 106 162 194 224 12
 python3 -I tools/render.py arr.pkl blueprint/layout_v3.json blueprint/killzone_v3.png 136 162 192 200 20
 python3 -I tools/render.py arr.pkl blueprint/layout_v3.json blueprint/overview_v3.png 92 112 238 226 6
