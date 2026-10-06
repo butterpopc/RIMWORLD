@@ -10,6 +10,7 @@
 | `blueprint/layout_v3.json` | 모든 공간·문·되메움·킬존 요소·야외 시설 좌표 + 검증 수치 |
 | `blueprint/validation_report.txt` | 검증 스크립트 출력 원문 (11개 검사) |
 | `blueprint/raid_sim_report.txt`, `raid_sim_v3.json` | 공병·돌파 경로 모의 실험 결과 |
+| `blueprint/drop_sim_report.txt`, `drop_sim_v3.json` | 드롭포드(중앙 투하) 착륙 가능성 분석 |
 | `blueprint/core_v3.png`, `killzone_v3.png`, `overview_v3.png` | 실제 지형 위 배치도 |
 | `planner/index.html` | 인터랙티브 설계도 (단계·레이어·사선 토글, 좌표 검사기) |
 
@@ -24,6 +25,7 @@ python3 -I tools/render_terrain.py              # → arr.pkl (단축 해시 →
 python3 -I tools/parse_pawns.py "$SAVE"         # 정착민 스킬·특성
 python3 -I tools/design.py arr.pkl things.pkl blueprint          # 배치 정의 + 11항목 검증 (실패 시 종료코드 1)
 python3 -I tools/raid_sim.py arr.pkl things.pkl blueprint/layout_v3.json blueprint/raid_sim_v3.json   # 공병·돌파 경로 모의 실험
+python3 -I tools/drop_sim.py arr.pkl blueprint/layout_v3.json blueprint/drop_sim_v3.json      # 드롭포드 착륙 분석
 python3 -I tools/render.py arr.pkl blueprint/layout_v3.json blueprint/core_v3.png 106 162 194 224 12
 python3 -I tools/export_web.py arr.pkl things.pkl blueprint/layout_v3.json blueprint/web_data.json
 python3 -I tools/build_planner.py                # → planner/index.html

@@ -1,0 +1,292 @@
+{
+ "spaces": {
+  "MZT": {
+   "name": "미로: 진입 터널",
+   "cells": 5,
+   "exposed_human": 5,
+   "exposed_mech": 5
+  },
+  "MZA": {
+   "name": "미로: 1구간",
+   "cells": 9,
+   "exposed_human": 9,
+   "exposed_mech": 9
+  },
+  "MZ1": {
+   "name": "미로: 굽이 1",
+   "cells": 1,
+   "exposed_human": 1,
+   "exposed_mech": 0
+  },
+  "MZB": {
+   "name": "미로: 2구간",
+   "cells": 9,
+   "exposed_human": 9,
+   "exposed_mech": 7
+  },
+  "MZ2": {
+   "name": "미로: 굽이 2",
+   "cells": 3,
+   "exposed_human": 3,
+   "exposed_mech": 2
+  },
+  "MZC": {
+   "name": "미로: 3구간 → 입구",
+   "cells": 16,
+   "exposed_human": 5,
+   "exposed_mech": 0
+  },
+  "LR": {
+   "name": "사로·개활지 + 사대",
+   "cells": 140,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "V": {
+   "name": "방폭 전실(U자)",
+   "cells": 2,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "WR": {
+   "name": "전투 대기실·무기고",
+   "cells": 24,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "ER": {
+   "name": "응급실(병원)",
+   "cells": 72,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "M1W": {
+   "name": "주 통로 서",
+   "cells": 11,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "M1C": {
+   "name": "주 통로 중앙(근접 방어선)",
+   "cells": 22,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "M1E": {
+   "name": "주 통로 동",
+   "cells": 28,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "TA": {
+   "name": "창고-냉동고 통로",
+   "cells": 7,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "TB": {
+   "name": "서비스 통로",
+   "cells": 30,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "C2": {
+   "name": "배터리실 복도",
+   "cells": 6,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "C3": {
+   "name": "동쪽 복도",
+   "cells": 30,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "CV": {
+   "name": "침실-대회당 연결 복도",
+   "cells": 14,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "CB": {
+   "name": "침실 복도",
+   "cells": 26,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "FRZ": {
+   "name": "냉동고",
+   "cells": 121,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "KIT": {
+   "name": "주방",
+   "cells": 55,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "HYD1": {
+   "name": "수경재배실 1",
+   "cells": 121,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "HYD2": {
+   "name": "수경재배실 2",
+   "cells": 121,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "STO": {
+   "name": "중앙 창고",
+   "cells": 121,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "BC": {
+   "name": "부부 침실",
+   "cells": 30,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "CH": {
+   "name": "대회당 복도",
+   "cells": 7,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "HALL": {
+   "name": "대회당",
+   "cells": 187,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "PRIS": {
+   "name": "감옥",
+   "cells": 54,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "LAB": {
+   "name": "연구실",
+   "cells": 63,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "WS": {
+   "name": "작업장",
+   "cells": 66,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "BAT": {
+   "name": "배터리·비상발전실",
+   "cells": 35,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "MECH": {
+   "name": "메카 정비소",
+   "cells": 63,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "CONT": {
+   "name": "격리동",
+   "cells": 56,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B11": {
+   "name": "침실 1",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B12": {
+   "name": "침실 2",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B13": {
+   "name": "침실 3",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B14": {
+   "name": "침실 4",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B15": {
+   "name": "침실 5",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B21": {
+   "name": "침실 6",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B22": {
+   "name": "침실 7",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B23": {
+   "name": "침실 8",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B24": {
+   "name": "침실 9",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "B25": {
+   "name": "침실 10",
+   "cells": 20,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  }
+ },
+ "fl_min_walk_to_drop": 58,
+ "wr_min_walk_to_drop": 68,
+ "trade_drop": {
+  "radius": 16,
+  "cells": 8,
+  "bbox": [
+   121,
+   165,
+   130,
+   168
+  ]
+ },
+ "evac_to_wr": {
+  "F1": 155,
+  "F2": 171,
+  "OLD": 134,
+  "SOL": 144,
+  "WIND": 185,
+  "GRAVE": 160,
+  "FISH": 197
+ },
+ "evac_to_mouth": {
+  "F1": 81,
+  "F2": 97,
+  "OLD": 60,
+  "SOL": 70,
+  "WIND": 111,
+  "GRAVE": 86,
+  "FISH": 123
+ }
+}
