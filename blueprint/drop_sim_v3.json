@@ -26,31 +26,37 @@
   },
   "MZ2": {
    "name": "미로: 굽이 2",
-   "cells": 1,
-   "exposed_human": 1,
-   "exposed_mech": 1
+   "cells": 2,
+   "exposed_human": 2,
+   "exposed_mech": 2
   },
   "MZC": {
    "name": "미로: 3구간",
-   "cells": 14,
-   "exposed_human": 8,
-   "exposed_mech": 1
+   "cells": 5,
+   "exposed_human": 5,
+   "exposed_mech": 0
   },
   "MZD": {
-   "name": "미로: 꺾임 → 입구",
+   "name": "미로: 꺾임",
    "cells": 3,
-   "exposed_human": 0,
+   "exposed_human": 1,
    "exposed_mech": 0
   },
   "MZE": {
-   "name": "사로 입구",
+   "name": "입구 터널",
+   "cells": 5,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "MZM": {
+   "name": "사로 입구(모서리)",
    "cells": 1,
    "exposed_human": 0,
    "exposed_mech": 0
   },
   "LR": {
    "name": "사로·개활지 + 사대",
-   "cells": 140,
+   "cells": 179,
    "exposed_human": 0,
    "exposed_mech": 0
   },
@@ -271,8 +277,8 @@
    "exposed_mech": 0
   }
  },
- "fl_min_walk_to_drop": 58,
- "wr_min_walk_to_drop": 68,
+ "fl_min_walk_to_drop": 64,
+ "wr_min_walk_to_drop": 74,
  "trade_drop": {
   "radius": 16,
   "cells": 8,
@@ -284,13 +290,13 @@
   ]
  },
  "evac_to_wr": {
-  "F1": 155,
-  "F2": 171,
-  "OLD": 134,
-  "SOL": 144,
-  "WIND": 185,
-  "GRAVE": 160,
-  "FISH": 197
+  "F1": 161,
+  "F2": 177,
+  "OLD": 140,
+  "SOL": 150,
+  "WIND": 191,
+  "GRAVE": 166,
+  "FISH": 203
  },
  "evac_to_mouth": {
   "F1": 81,

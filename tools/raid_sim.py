@@ -39,7 +39,7 @@ for s in bp["spaces"]:
 for f in bp["fill"]:
     for c in cells(f["rect"]):
         G[c[1]][c[0]] = 2
-for x, z in bp["coolers"]:
+for x, z in bp["coolers"] + [tuple(c) for c in bp.get("fl_walls", [])]:
     G[z][x] = 2
 for x, z in bp["doors"]:
     G[z][x] = 3

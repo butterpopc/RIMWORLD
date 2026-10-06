@@ -40,7 +40,7 @@ for s in bp["spaces"]:
 for f in bp["fill"]:
     for c in cells(f["rect"]):
         G[c[1]][c[0]] = 1
-for x, z in bp["coolers"] + bp["doors"]:
+for x, z in bp["coolers"] + bp["doors"] + [tuple(c) for c in bp.get("fl_walls", [])]:
     G[z][x] = 1
 SB = [tuple(c) for c in VAR["sandbags"]] if "sandbags" in VAR else list(cells(bp["sandbags"]))
 for x, z in SB + [tuple(b) for b in bp.get("barricades", [])]:
@@ -123,16 +123,19 @@ def block_chance(target, shooter):
         tot += (1 - tot) * base * f
     return tot
 
-fl = [tuple(c) for c in VAR["shooters"]] if "shooters" in VAR else [c for c in cells(bp["killzone"]["firing_line"]) if G[c[1]][c[0]] == 0]
+fl = [tuple(c) for c in VAR["shooters"]] if "shooters" in VAR else (
+    [tuple(c) for c in bp["killzone"]["shooters"]] if "shooters" in bp["killzone"]
+    else [c for c in cells(bp["killzone"]["firing_line"]) if G[c[1]][c[0]] == 0])
 maze = [c for c, o in owner.items() if o.startswith("MZ") and G[c[1]][c[0]] == 0]
-lane = [c for c, o in owner.items() if o == "LR" and c[0] > bp["sandbags"][0]]
+lane = [c for c, o in owner.items() if o == "LR" and c[0] > bp["sandbags"][0] and G[c[1]][c[0]] == 0]
 
 snipe = []
 for m in maze:
     hits = [f for f in fl if can_hit(m, f)]
     if hits:
         back = [f for f in fl if can_hit(f, m)]
-        snipe.append(dict(cell=m, space=owner[m], can_hit_fl=len(hits), fl_can_hit_back=len(back)))
+        cov = [block_chance(m, f) for f in back] or [0]
+        snipe.append(dict(cell=m, space=owner[m], can_hit_fl=len(hits), fl_can_hit_back=len(back), cover_avg=sum(cov) / len(cov)))
 lane_stats = []
 for c in lane:
     back = [f for f in fl if can_hit(f, c)]
@@ -142,7 +145,7 @@ covered = [s for s in lane_stats if s["cover_avg"] >= 0.2]
 print(f"사대 칸 {len(fl)} / 미로 칸 {len(maze)} / 사로 칸 {len(lane)}")
 print(f"[A] 사로에 나오지 않고 사대를 쏠 수 있는 미로 칸: {len(snipe)}개")
 for s in snipe:
-    print(f"    {s['cell']} {s['space']}: 사대 {s['can_hit_fl']}칸을 쏠 수 있음, 되쏠 수 있는 사대 칸 {s['fl_can_hit_back']}/{len(fl)}")
+    print(f"    {s['cell']} {s['space']}: 사대 {s['can_hit_fl']}칸을 쏠 수 있음, 되쏠 수 있는 사대 칸 {s['fl_can_hit_back']}/{len(fl)}, 그 칸의 엄폐 {100*s['cover_avg']:.0f}%")
 mn = min(s["fl_can_hit"] for s in lane_stats)
 print(f"[B] 사로 칸을 쏠 수 있는 사대 칸 수: 최소 {mn}/{len(fl)}, 평균 {sum(s['fl_can_hit'] for s in lane_stats)/len(lane_stats):.1f}")
 print(f"[C] 사로에서 적이 얻는 평균 엄폐율: 전체 평균 {100*sum(s['cover_avg'] for s in lane_stats)/len(lane_stats):.1f}%, "
@@ -158,5 +161,36 @@ print(f"[D] 사수 칸 {len(fl)}개: 사로 사격 가능 평균 {sum(d[1] for d
       f"사수가 받는 평균 엄폐 {100*sum(d[3] for d in dstats)/len(dstats):.0f}% (최소 {100*min(d[3] for d in dstats):.0f}%)")
 for d in dstats[:7]:
     print(f"    {d[0]}: 사로 {d[1]}칸 사격 가능, {d[2]}칸에서 피격 가능, 엄폐 {100*d[3]:.0f}%")
+# [E] 비대칭 화망 검사
+#   E1 사수를 쏠 수 있는 칸 중 사로 밖(미로·터널, 입구 칸 제외) 칸의 엄폐가 20% 이상이면 실패 (모퉁이 엿보기)
+#   E2 사수를 쏠 수 있는 칸이 사수에게서 30.9칸(돌격소총·미니건 사거리)보다 멀면 실패 (사거리 차 피격)
+#   지도 전체에서 걸을 수 있는 칸을 사수 반경 50칸 안에서 모두 검사한다(저격소총 44.9 포함)
+RANGE = 30.9
+mouth = tuple(bp["killzone"]["entrance"])
+walk = [(x, z) for z in range(N) for x in range(N) if G[z][x] != 1
+        and any((x - f[0]) ** 2 + (z - f[1]) ** 2 <= 2500 for f in fl)]
+e1, e2, far_max = [], [], 0.0
+for f in fl:
+    for c in walk:
+        d = math.dist(c, f)
+        if d < 2 or not can_hit(c, f):
+            continue
+        far_max = max(far_max, d)
+        if d > RANGE:
+            e2.append((c, f, round(d, 1)))
+        if owner.get(c) != "LR" and c != mouth:
+            bc = block_chance(c, f)
+            if bc >= 0.2:
+                e1.append((c, f, round(100 * bc)))
+print(f"[E] 비대칭 검사: 사수를 볼 수 있는 가장 먼 칸 {far_max:.1f}칸 (기준 {RANGE}) / 사거리 밖 사선 {len(e2)}개 / "
+      f"사로 밖 엄폐 20%↑ 엿보기 {len(e1)}개 / 검사 칸 {len(walk)}")
+for x in e1[:5] + e2[:5]:
+    print("    ", x)
+mouth_cov = [block_chance(mouth, f) for f in fl if can_hit(f, mouth)]
+print(f"    입구 칸의 적 엄폐(사수별 최대) {100*max(mouth_cov or [0]):.0f}%, 입구를 쏠 수 있는 사수 {len(mouth_cov)}/{len(fl)}")
 if out:
-    json.dump(dict(snipe=snipe, lane=lane_stats), open(out, "w"), ensure_ascii=False, indent=1)
+    json.dump(dict(snipe=snipe, lane=lane_stats, asym=dict(far_max=far_max, out_of_range=e2, peek=e1,
+                   mouth_cover_max=max(mouth_cov or [0]), mouth_shooters=len(mouth_cov))),
+              open(out, "w"), ensure_ascii=False, indent=1)
+if e1 or e2:
+    sys.exit(1)

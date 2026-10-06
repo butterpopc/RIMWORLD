@@ -11,7 +11,7 @@
 | `blueprint/validation_report.txt` | 검증 스크립트 출력 원문 (12개 검사) |
 | `blueprint/raid_sim_report.txt`, `raid_sim_v3.json` | 공병·돌파 경로 모의 실험 결과 |
 | `blueprint/drop_sim_report.txt`, `drop_sim_v3.json` | 드롭포드(중앙 투하) 착륙 가능성 분석 |
-| `blueprint/standoff_report.txt`, `standoff_v3.json` | 사선·엄폐 분석: 미로 안 저격 자리, 사로 엄폐, 사수 엄폐 |
+| `blueprint/standoff_report.txt`, `standoff_v3.json` | 사선·엄폐 분석 + 비대칭 화망 검사(E1 엿보기 0, E2 사거리 30.9 밖 사선 0; 실패 시 종료코드 1) |
 | `blueprint/core_v3.png`, `killzone_v3.png`, `overview_v3.png` | 실제 지형 위 배치도 |
 | `planner/index.html` | 인터랙티브 설계도 (단계·레이어·사선 토글, 좌표 검사기) |
 

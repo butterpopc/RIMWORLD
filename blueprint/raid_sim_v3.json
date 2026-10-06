@@ -80,9 +80,8 @@
    "via_killzone": 0,
    "pct": 0,
    "breach_into": {
-    "FRZ": 103,
-    "MZT": 1,
-    "MZB": 52
+    "MZB": 144,
+    "MZT": 12
    }
   },
   {
@@ -104,7 +103,8 @@
    "via_killzone": 0,
    "pct": 0,
    "breach_into": {
-    "FRZ": 156
+    "FRZ": 142,
+    "MZB": 14
    }
   },
   {
@@ -133,8 +133,9 @@
    "via_killzone": 0,
    "pct": 0,
    "breach_into": {
-    "FRZ": 155,
-    "MZB": 1
+    "FRZ": 30,
+    "MZB": 114,
+    "MZT": 12
    }
   },
   {
@@ -185,7 +186,8 @@
    "via_killzone": 0,
    "pct": 0,
    "breach_into": {
-    "FRZ": 156
+    "FRZ": 93,
+    "MZB": 63
    }
   },
   {

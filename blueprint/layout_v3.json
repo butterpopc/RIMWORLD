@@ -92,17 +92,17 @@
     186,
     176,
     186,
-    176
+    177
    ],
    "phase": 1,
-   "note": "북쪽 1칸.",
-   "size": "1x1",
-   "cells": 1,
-   "mine": 1,
+   "note": "북쪽 2칸.",
+   "size": "1x2",
+   "cells": 2,
+   "mine": 2,
    "existing": 0,
    "thick_pct": 100,
    "rock_cover": 10,
-   "infest_cells": 1,
+   "infest_cells": 2,
    "bypass_dig": 9
   },
   {
@@ -110,63 +110,84 @@
    "name": "미로: 3구간",
    "kind": "corridor",
    "rect": [
-    173,
-    177,
+    182,
+    178,
     186,
-    177
+    178
    ],
    "phase": 1,
-   "note": "서쪽 14칸. 사로 동벽(x=171) 뒤에 숨어 있어 이 통로에서는 사대가 보이지 않는다(통로 안 저격 차단).",
-   "size": "14x1",
-   "cells": 14,
-   "mine": 14,
+   "note": "서쪽 5칸. 암반에 가려 사대가 보이지 않는다.",
+   "size": "5x1",
+   "cells": 5,
+   "mine": 5,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 5,
-   "infest_cells": 14,
-   "bypass_dig": 6
+   "rock_cover": 12,
+   "infest_cells": 5,
+   "bypass_dig": 10
   },
   {
    "id": "MZD",
-   "name": "미로: 꺾임 → 입구",
+   "name": "미로: 꺾임",
    "kind": "corridor",
    "rect": [
-    172,
-    177,
-    172,
-    179
+    182,
+    179,
+    182,
+    181
    ],
    "phase": 1,
-   "note": "북쪽으로 3칸 꺾어 올라와 입구 (171,179)에 닿는다. 사대가 보이는 미로 칸은 입구 바로 뒤 몇 칸뿐이고, 그 칸은 사대 전원이 되쏠 수 있다.",
+   "note": "북쪽 3칸 → 터널 끝 (182,182)에서 서쪽으로 꺾음. 꺾임 칸(182,181)은 몸 내밀기 자리지만, 터널이 6칸 직선이라 그 시야(사로 북쪽 줄)에 사수가 없다.",
    "size": "1x3",
    "cells": 3,
    "mine": 3,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 5,
+   "rock_cover": 14,
    "infest_cells": 3,
-   "bypass_dig": 6
+   "bypass_dig": 11
   },
   {
    "id": "MZE",
-   "name": "사로 입구",
+   "name": "입구 터널",
    "kind": "corridor",
    "rect": [
-    171,
-    179,
-    171,
-    179
+    178,
+    182,
+    182,
+    182
    ],
    "phase": 1,
-   "note": "사로 동벽의 폭 1 입구. 문 없음.",
+   "note": "서쪽 5칸 직선. 남북 벽이 사선과 나란해 엄폐 0~15%. 사수가 보이는 칸은 입구 쪽 몇 칸뿐이고 모두 사거리 30.9 안.",
+   "size": "5x1",
+   "cells": 5,
+   "mine": 5,
+   "existing": 0,
+   "thick_pct": 100,
+   "rock_cover": 13,
+   "infest_cells": 5,
+   "bypass_dig": 13
+  },
+  {
+   "id": "MZM",
+   "name": "사로 입구(모서리)",
+   "kind": "corridor",
+   "rect": [
+    177,
+    182,
+    177,
+    182
+   ],
+   "phase": 1,
+   "note": "사로 북동 모서리의 폭 1 입구. 문 없음. 양옆 벽이 사수 방향과 거의 직각이라 엄폐 0%.",
    "size": "1x1",
    "cells": 1,
    "mine": 1,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 7,
+   "rock_cover": 12,
    "infest_cells": 1,
-   "bypass_dig": 8
+   "bypass_dig": 13
   },
   {
    "id": "LR",
@@ -175,19 +196,19 @@
    "rect": [
     151,
     176,
-    170,
+    176,
     182
    ],
    "phase": 1,
-   "note": "20×7. 입구(171,179)로 들어온 적은 사대 앞 모래주머니(x=154)까지 엄폐물 없는 16칸을 건넌다. 사대는 서쪽 3열(x151~153). 냉동고 냉각기가 사대 뒤 벽에서 배기.",
-   "size": "20x7",
-   "cells": 140,
-   "mine": 140,
+   "note": "26×7. 입구(177,182)로 들어온 적은 사대 앞 모래주머니(x=154)까지 엄폐물 없는 22칸을 건넌다. 사대는 서쪽 3열(x151~153), 사수 5자리(153,176~180). 냉동고 냉각기가 사대 뒤 벽에서 배기.",
+   "size": "26x7",
+   "cells": 182,
+   "mine": 182,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 5,
-   "infest_cells": 140,
-   "bypass_dig": 6
+   "rock_cover": 4,
+   "infest_cells": 182,
+   "bypass_dig": 5
   },
   {
    "id": "V",
@@ -1200,7 +1221,21 @@
   154,
   176,
   154,
-  182
+  179
+ ],
+ "fl_walls": [
+  [
+   154,
+   180
+  ],
+  [
+   154,
+   181
+  ],
+  [
+   154,
+   182
+  ]
  ],
  "turrets": [],
  "sunlamps": [
@@ -1403,13 +1438,13 @@
    "a": "LR",
    "b": "ER",
    "label": "사대→응급실(부상자 후송)",
-   "steps": 29
+   "steps": 32
   },
   {
    "a": "WR",
    "b": "LR",
    "label": "대기실→사대(투입)",
-   "steps": 20
+   "steps": 23
   },
   {
    "a": "B25",
@@ -1514,14 +1549,36 @@
    187
   ],
   "entrance": [
-   171,
-   179
+   177,
+   182
   ],
   "firing_line": [
    151,
    176,
    153,
    182
+  ],
+  "shooters": [
+   [
+    153,
+    176
+   ],
+   [
+    153,
+    177
+   ],
+   [
+    153,
+    178
+   ],
+   [
+    153,
+    179
+   ],
+   [
+    153,
+    180
+   ]
   ],
   "ids": [
    "MZT",
@@ -1532,30 +1589,31 @@
    "MZC",
    "MZD",
    "MZE",
+   "MZM",
    "LR"
   ],
   "checks": {
    "v8": "통과",
-   "v9_lines_checked": 20440,
-   "v10_min_lane_visibility_pct": 100,
-   "entrance_to_sandbag_cells": 16,
-   "maze_cells": 43,
+   "v9_lines_checked": 26572,
+   "v10_min_lane_visibility_pct": 94,
+   "entrance_to_sandbag_cells": 22,
+   "maze_cells": 40,
    "maze_barricades": 8,
    "firing_line_cells": 21,
    "v12_min_rock_to_interior": 5,
    "v12_thinnest_at": [
     "M1E",
     [
-     161,
+     178,
      188
     ]
    ]
   }
  },
  "stats": {
-  "new_mined": 1479,
+  "new_mined": 1518,
   "mined_by_phase": {
-   "1": 285,
+   "1": 324,
    "2": 954,
    "3": 240
   },

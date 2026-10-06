@@ -27,7 +27,7 @@ P1, P2, P3, P4 = 1, 2, 3, 4
 # ------------------------------------------------------------------ 배치 ----
 # (id, 이름, 종류, rect, 단계, 용도/근거)
 # 킬존 층(바깥 → 안):
-#   미끼 가구 → 미로(MZ*, 장애물, 마지막은 ㄱ자) → 입구(171,179) → 사로·개활지(LR 동쪽) → 사대(LR 서쪽 x151~153)
+#   미끼 가구 → 미로(MZ*, 장애물) → 직선 터널 → 모서리 입구(177,182) → 사로·개활지(LR 동쪽) → 사대(LR 서쪽 x151~153)
 #   → 방폭문 D1(151,183) → U자 전실 V → 방폭문 D2(152,185) → 전투 대기실 WR → 근접 방어 문(156,187)
 #   → 근접 방어선(주 통로 155~157,188) → 응급실 ER
 SPACES = [
@@ -37,14 +37,16 @@ SPACES = [
     ("MZA", "미로: 1구간", "corridor", (178, 173, 186, 173), P1, "서쪽 9칸. 바리케이드 격칸(이동 속도 24%). 1.6에서 적은 그 위에서도 멈춰 쏠 수 있다(사격 위치 선호 ×0.4)."),
     ("MZ1", "미로: 굽이 1", "corridor", (178, 174, 178, 174), P1, "180° 꺾임."),
     ("MZB", "미로: 2구간", "corridor", (178, 175, 186, 175), P1, "동쪽 9칸. 바리케이드 격칸."),
-    ("MZ2", "미로: 굽이 2", "corridor", (186, 176, 186, 176), P1, "북쪽 1칸."),
-    ("MZC", "미로: 3구간", "corridor", (173, 177, 186, 177), P1,
-     "서쪽 14칸. 사로 동벽(x=171) 뒤에 숨어 있어 이 통로에서는 사대가 보이지 않는다(통로 안 저격 차단)."),
-    ("MZD", "미로: 꺾임 → 입구", "corridor", (172, 177, 172, 179), P1,
-     "북쪽으로 3칸 꺾어 올라와 입구 (171,179)에 닿는다. 사대가 보이는 미로 칸은 입구 바로 뒤 몇 칸뿐이고, 그 칸은 사대 전원이 되쏠 수 있다."),
-    ("MZE", "사로 입구", "corridor", (171, 179, 171, 179), P1, "사로 동벽의 폭 1 입구. 문 없음."),
-    ("LR", "사로·개활지 + 사대", "room", (151, 176, 170, 182), P1,
-     "20×7. 입구(171,179)로 들어온 적은 사대 앞 모래주머니(x=154)까지 엄폐물 없는 16칸을 건넌다. 사대는 서쪽 3열(x151~153). 냉동고 냉각기가 사대 뒤 벽에서 배기."),
+    ("MZ2", "미로: 굽이 2", "corridor", (186, 176, 186, 177), P1, "북쪽 2칸."),
+    ("MZC", "미로: 3구간", "corridor", (182, 178, 186, 178), P1, "서쪽 5칸. 암반에 가려 사대가 보이지 않는다."),
+    ("MZD", "미로: 꺾임", "corridor", (182, 179, 182, 181), P1,
+     "북쪽 3칸 → 터널 끝 (182,182)에서 서쪽으로 꺾음. 꺾임 칸(182,181)은 몸 내밀기 자리지만, 터널이 6칸 직선이라 그 시야(사로 북쪽 줄)에 사수가 없다."),
+    ("MZE", "입구 터널", "corridor", (178, 182, 182, 182), P1,
+     "서쪽 5칸 직선. 남북 벽이 사선과 나란해 엄폐 0~15%. 사수가 보이는 칸은 입구 쪽 몇 칸뿐이고 모두 사거리 30.9 안."),
+    ("MZM", "사로 입구(모서리)", "corridor", (177, 182, 177, 182), P1,
+     "사로 북동 모서리의 폭 1 입구. 문 없음. 양옆 벽이 사수 방향과 거의 직각이라 엄폐 0%."),
+    ("LR", "사로·개활지 + 사대", "room", (151, 176, 176, 182), P1,
+     "26×7. 입구(177,182)로 들어온 적은 사대 앞 모래주머니(x=154)까지 엄폐물 없는 22칸을 건넌다. 사대는 서쪽 3열(x151~153), 사수 5자리(153,176~180). 냉동고 냉각기가 사대 뒤 벽에서 배기."),
     ("V", "방폭 전실(U자)", "corridor", (151, 184, 151, 185), P1,
      "D1(151,183) → 북쪽 2칸 → D2(152,185)로 동쪽 꺾임. 사로에서 대기실로 가는 직선이 존재할 수 없는 U자 구조(V9로 확인)."),
     ("WR", "전투 대기실·무기고", "room", (153, 184, 160, 186), P1,
@@ -90,10 +92,11 @@ for r, (z0, z1, dz) in enumerate(BED_ROWS):
         SPACES.append((f"B{r+1}{c+1}", f"침실 {r*5+c+1}", "room", (x0, z0, x0 + 3, z1), P2,
                        "4×5 독실. 킬존 출구 뒤 깊은 곳(돌파·공병의 목적지가 침대이므로)."))
 
-KILLZONE = ("MZT", "MZA", "MZ1", "MZB", "MZ2", "MZC", "MZD", "MZE", "LR")   # 바깥과 이어진 전투 구역
+KILLZONE = ("MZT", "MZA", "MZ1", "MZB", "MZ2", "MZC", "MZD", "MZE", "MZM", "LR")   # 바깥과 이어진 전투 구역
 D1, D2, MELEE = (151, 183), (152, 185), (156, 187)
-ENTRANCE = (171, 179)
+ENTRANCE = (177, 182)
 FIRING_LINE = (151, 176, 153, 182)
+SHOOTERS = [(153, z) for z in range(176, 181)]   # 사수 5자리: 176~179 모래주머니 뒤, 180 벽 뒤(몸 내밀기)
 DOORS = [
     D1, D2, MELEE,                          # 방폭문 2, 근접 방어 문
     (155, 189),                             # 응급실 ↔ 근접 방어선
@@ -125,7 +128,8 @@ FILL = [  # (rect, 설명, 단계)
     ((130, 175, 130, 175), "R1 옛 남문", P2),
 ]
 COOLERS = [(150, 177), (150, 179), (150, 181)]
-SANDBAGS = (154, 176, 154, 182)
+SANDBAGS = (154, 176, 154, 179)
+FL_WALLS = [(154, 180), (154, 181), (154, 182)]   # 사대 북쪽 벽: 입구 터널 축(z=182) 쪽 사수 자리를 가려 '엿보기·사거리 밖' 사선 제거(standoff_sim)
 TURRETS = []   # 킬존 시야 안 포탑 금지: AvoidGrid는 전원과 무관하게 포탑을 회피 → 똑똑한 돌파·공병 우회(raid_sim)
 BARRICADES = [(x, 173) for x in range(179, 187, 2)] + [(x, 175) for x in range(179, 187, 2)]
 BAIT = [(183, 166), (188, 165)]               # 미끼 가구: 포탑이 아닌 값싼 가구(반경 5칸 '부수기' 대상, 회피 격자 없음)
@@ -228,14 +232,14 @@ def main():
     for r, _, _ in FILL:
         for c in cells(r):
             fill_cells.add(c); G[c[1]][c[0]] = 2
-    for (x, z) in COOLERS:
-        G[z][x] = 2  # 냉각기는 벽 칸
+    for (x, z) in COOLERS + FL_WALLS:
+        G[z][x] = 2  # 냉각기·사대 벽은 벽 칸
     for (x, z) in TURRETS + BARRICADES:
         if owner.get((x, z)) is None:
             problems.append(f"V1 포탑/바리케이드가 공간 밖 {(x, z)}")
     # V1 맞닿음
     allowed = {frozenset(p) for p in [("MZT", "MZA"), ("MZA", "MZ1"), ("MZ1", "MZB"), ("MZB", "MZ2"), ("MZ2", "MZC"),
-                                      ("MZC", "MZD"), ("MZD", "MZE"), ("MZE", "LR"), ("TA", "M1C"), ("TB", "M1C"), ("M1W", "M1C"), ("M1C", "M1E"),
+                                      ("MZC", "MZD"), ("MZD", "MZE"), ("MZE", "MZM"), ("MZM", "LR"), ("TA", "M1C"), ("TB", "M1C"), ("M1W", "M1C"), ("M1C", "M1E"),
                                       ("C3", "M1E"), ("C3", "CB"), ("C3", "CH"), ("CB", "CV")]}
     for (x, z), a in owner.items():
         for dx, dz in ((1, 0), (0, 1)):
@@ -343,11 +347,11 @@ def main():
     kz["v9_lines_checked"] = len(lr) * len(protect)
     # V10 사대 전 칸에서 입구가 보이고, 사로 칸의 몇 %를 볼 수 있는지
     fl = list(cells(FIRING_LINE))
-    blind = [c for c in fl if not los(c, ENTRANCE)]
+    blind = [c for c in SHOOTERS if c[1] <= SANDBAGS[3] and not los(c, ENTRANCE)]   # 벽 뒤 사수(몸 내밀기)는 standoff_sim이 검사
     if blind:
         problems.append(f"V10 입구가 안 보이는 사대 칸: {blind}")
     lane = [c for c in lr if c[0] > SANDBAGS[0]]
-    cover = [sum(los(f, c) for c in lane) / len(lane) for f in fl]
+    cover = [sum(los(f, c) for c in lane) / len(lane) for f in SHOOTERS if f[1] <= SANDBAGS[3]]
     kz["v10_min_lane_visibility_pct"] = round(100 * min(cover))
     kz["entrance_to_sandbag_cells"] = ENTRANCE[0] - SANDBAGS[0] - 1
     # V11 미로는 외길(지름길 없음): 미로 칸마다 미로 이웃 ≤ 2, 끝점 2개
@@ -475,12 +479,12 @@ def main():
 
     bp = dict(spaces=[dict(id=s[0], name=s[1], kind=s[2], rect=s[3], phase=s[4], note=s[5], **{k: v for k, v in rep[s[0]].items() if k != "name"}) for s in SPACES],
               doors=[list(d) for d in DOORS], firedoors=[list(d) for d in FIREDOORS],
-              fill=[dict(rect=r, note=n, phase=p) for r, n, p in FILL], coolers=COOLERS, sandbags=SANDBAGS, turrets=TURRETS,
+              fill=[dict(rect=r, note=n, phase=p) for r, n, p in FILL], coolers=COOLERS, sandbags=SANDBAGS, fl_walls=FL_WALLS, turrets=TURRETS,
               sunlamps=SUNLAMPS,
               outdoor=[dict(id=o[0], name=o[1], rect=o[2], phase=o[3], note=o[4]) for o in OUTDOOR],
               points=[dict(xz=list(p), name=n) for p, n in POINT_OUT], tempgen=[dict(xz=list(p), name=n) for p, n in TEMP_GEN],
               conduit=CONDUIT, routes=routes, barricades=BARRICADES, bait=[list(b) for b in BAIT], melee_spots=MELEE_SPOTS,
-              killzone=dict(d1=list(D1), d2=list(D2), melee=list(MELEE), entrance=list(ENTRANCE), firing_line=FIRING_LINE,
+              killzone=dict(d1=list(D1), d2=list(D2), melee=list(MELEE), entrance=list(ENTRANCE), firing_line=FIRING_LINE, shooters=SHOOTERS,
                             ids=list(KILLZONE), checks=kz),
               stats=dict(new_mined=total_new, mined_by_phase=dict(by_phase), filled=len(fill_cells), ore=dict(ore)),
               problems=problems)

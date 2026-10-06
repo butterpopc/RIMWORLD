@@ -21,7 +21,7 @@ ROCK = {"Limestone": (118, 113, 92), "Sandstone": (128, 88, 60), "Marble": (150,
 ORE = {"MineableSteel": (205, 70, 70), "MineableComponentsIndustrial": (235, 195, 30), "MineableSilver": (140, 210, 240),
        "MineableGold": (240, 160, 20), "MineableUranium": (60, 220, 110), "MineableJade": (40, 150, 110)}
 # 기능군 색: 방어 / 식량 / 생활 / 생산 / 의료·수감 / 전력 / 통로 / 특수
-GROUP = {"LR": "def", "V": "def", "WR": "def", "MZT": "def", "MZA": "def", "MZ1": "def", "MZB": "def", "MZ2": "def", "MZC": "def", "MZD": "def", "MZE": "def", "ER": "med", "FRZ": "food", "KIT": "food", "HYD1": "food",
+GROUP = {"LR": "def", "V": "def", "WR": "def", "MZT": "def", "MZA": "def", "MZ1": "def", "MZB": "def", "MZ2": "def", "MZC": "def", "MZD": "def", "MZE": "def", "MZM": "def", "ER": "med", "FRZ": "food", "KIT": "food", "HYD1": "food",
          "HYD2": "food", "HALL": "life", "BC": "life", "PRIS": "med", "WS": "prod", "STO": "prod",
          "LAB": "prod", "MECH": "prod", "BAT": "power", "CONT": "special"}
 GCOL = {"def": (205, 70, 60), "food": (95, 175, 225), "life": (235, 205, 120), "med": (120, 205, 150),
@@ -72,6 +72,8 @@ for x, z in bp["firedoors"]:
     cell(x, z, (230, 90, 30, 255), max(1, S // 5))
 for x, z in bp["coolers"]:
     cell(x, z, (0, 200, 255, 255))
+for x, z in bp.get("fl_walls", []):
+    cell(x, z, (45, 45, 45, 255))
 for x, z in bp["turrets"]:
     cell(x, z, (255, 30, 30, 255))
 for x, z in bp.get("barricades", []):
