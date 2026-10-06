@@ -1,0 +1,523 @@
+<title>아스테라스 산악 요새</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* 레이아웃: 측량 도면첩 — 맨 위 실측 지도 + 검사기, 그 아래 근거 섹션이 순서대로 쌓임 */
+:root{
+  --bg:#ECEEEA; --surface:#F7F8F5; --ink:#1C2225; --muted:#59636A; --line:#CDD2CC;
+  --accent:#A3562A; --accent-soft:#F1E3D8; --ok:#2C7549; --warn:#8F5E00; --risk:#AF3328;
+  --ok-soft:#DDEFE3; --warn-soft:#F5EBD3; --risk-soft:#F6DEDA;
+  --f-display:"Do Hyeon","IBM Plex Sans KR",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#131719; --surface:#1B2023; --ink:#E3E6E1; --muted:#97A1A6; --line:#2C3337;
+  --accent:#D88B57; --accent-soft:#3A2A20; --ok:#62BD86; --warn:#E0AA4E; --risk:#E5776B;
+  --ok-soft:#1D3327; --warn-soft:#382D17; --risk-soft:#3C201D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#131719; --surface:#1B2023; --ink:#E3E6E1; --muted:#97A1A6; --line:#2C3337;
+  --accent:#D88B57; --accent-soft:#3A2A20; --ok:#62BD86; --warn:#E0AA4E; --risk:#E5776B;
+  --ok-soft:#1D3327; --warn-soft:#382D17; --risk-soft:#3C201D; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(30px,5vw,44px);letter-spacing:.01em}
+h2{font-size:26px;margin-bottom:12px}
+h3{font-size:19px;margin-bottom:8px}
+p{margin:0;max-width:68ch}
+.mono,code{font-family:var(--f-mono);font-size:.92em}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:grid;gap:12px;margin-bottom:22px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);border-radius:4px;padding:2px 8px;font-size:13px;color:var(--muted);background:var(--surface)}
+.chip b{color:var(--ink);font-weight:600}
+section{margin-top:44px;display:grid;gap:14px}
+.lede{color:var(--muted)}
+/* 지도 도구 */
+.tool{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+@media (max-width:860px){.tool{grid-template-columns:minmax(0,1fr)}}
+.mapbox{background:#0E1113;border:1px solid var(--line);border-radius:6px;overflow:hidden;position:relative;touch-action:none}
+canvas{display:block;width:100%;height:auto;cursor:grab}
+canvas:active{cursor:grabbing}
+.controls{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-bottom:8px}
+.group{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.group>span{font-size:12px;color:var(--muted);margin-right:2px}
+button,.tog{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;padding:3px 9px;cursor:pointer}
+button:hover,.tog:hover{border-color:var(--accent)}
+button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+button:focus-visible,.tog:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.tog{display:inline-flex;gap:5px;align-items:center}
+.tog input{margin:0;accent-color:var(--accent)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:grid;gap:10px;min-width:0}
+.panel .coord{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.panel h3{margin:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:13px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-variant-numeric:tabular-nums}
+.legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 10px;font-size:12px;color:var(--muted)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;border:1px solid rgba(0,0,0,.25)}
+.hint{font-size:12px;color:var(--muted)}
+/* 카드·표 */
+.cond{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.cond{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:8px;align-content:start;min-width:0}
+.card .num{font-family:var(--f-display);font-size:34px;color:var(--accent);line-height:1}
+.card ul{margin:0;padding-left:18px;display:grid;gap:3px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.02em;background:var(--bg);position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+tbody tr[data-id]{cursor:pointer}
+tbody tr[data-id]:hover{background:var(--accent-soft)}
+.pill{display:inline-block;font-size:12px;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-risk{background:var(--risk-soft);color:var(--risk)}
+.ph{font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);border-radius:3px;padding:0 5px;color:var(--muted)}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.check{display:flex;gap:10px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:13px;min-width:0}
+.check .mark{font-family:var(--f-mono);color:var(--ok);font-weight:500}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.two{grid-template-columns:minmax(0,1fr)}}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:92px minmax(0,1fr) 72px;gap:8px;align-items:center;font-size:13px}
+.track{height:14px;background:var(--bg);border:1px solid var(--line);border-radius:3px;position:relative;overflow:hidden}
+.fill{position:absolute;inset:0 auto 0 0;background:var(--accent)}
+.fill.sup{background:var(--ok)}
+.bar .v{font-family:var(--f-mono);text-align:right;font-size:12px}
+.chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px}
+.chain .node{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:3px 9px}
+.chain .step{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+ol.steps{margin:0;padding-left:20px;display:grid;gap:4px}
+.tag{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+footer{margin-top:48px;font-size:12px;color:var(--muted);display:grid;gap:4px}
+footer a{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">RimWorld 1.6 · 전 DLC · 랜디 / 어려움 / 철인 모드 · 설계 v2</span>
+  <h1>아스테라스 산악 요새</h1>
+  <p class="lede">세이브 파일을 해독한 실제 지형 위에 그린 기지 설계도입니다. 생존에 필요한 모든 것을 두꺼운 산 지붕 아래에 두고, 출입구는 킬박스 하나만 남깁니다. 모든 좌표·동선·암반 두께는 검증 스크립트로 계산한 값입니다.</p>
+  <div class="chips">
+    <span class="chip">경과 <b>9.1일</b></span>
+    <span class="chip">지금 <b>5500 데셈버리 1일 (남반구 여름)</b></span>
+    <span class="chip">겨울까지 <b>약 30일</b></span>
+    <span class="chip">정착민 <b>3명</b></span>
+    <span class="chip">맵 <b>275×275 온대림·산악</b></span>
+    <span class="chip">발전기 <b>0기</b></span>
+  </div>
+</header>
+
+<section id="map" aria-label="설계도">
+  <div class="controls">
+    <div class="group" role="group" aria-label="보기">
+      <span>보기</span>
+      <button type="button" data-view="core" aria-pressed="true">산 내부</button>
+      <button type="button" data-view="base" aria-pressed="false">기지 주변</button>
+      <button type="button" data-view="all" aria-pressed="false">맵 전체</button>
+      <button type="button" id="zin" aria-label="확대">＋</button>
+      <button type="button" id="zout" aria-label="축소">－</button>
+    </div>
+    <div class="group" role="group" aria-label="단계">
+      <span>단계</span>
+      <label class="tog"><input type="checkbox" id="ph1" checked>1</label>
+      <label class="tog"><input type="checkbox" id="ph2" checked>2</label>
+      <label class="tog"><input type="checkbox" id="ph3" checked>3</label>
+      <label class="tog"><input type="checkbox" id="ph4" checked>4(선택)</label>
+    </div>
+    <div class="group" role="group" aria-label="레이어">
+      <span>레이어</span>
+      <label class="tog"><input type="checkbox" id="lyOre" checked>광맥</label>
+      <label class="tog"><input type="checkbox" id="lyNow">현재 구조물</label>
+      <label class="tog"><input type="checkbox" id="lyRoof">얇은 지붕</label>
+      <label class="tog"><input type="checkbox" id="lyLbl" checked>이름</label>
+    </div>
+  </div>
+  <div class="tool">
+    <div class="mapbox"><canvas id="cv" width="900" height="620" aria-label="기지 설계 지도. 드래그로 이동, 휠로 확대"></canvas></div>
+    <aside class="panel" aria-live="polite">
+      <div class="coord" id="coord">지도 위에 마우스를 올리세요</div>
+      <div id="info"><h3>공간을 누르면 상세 정보</h3><p class="hint">드래그로 이동, 휠 또는 ＋/－로 확대. 표의 행을 누르면 그 위치로 이동합니다.</p></div>
+      <div class="legend" id="legend"></div>
+    </aside>
+  </div>
+</section>
+
+<section id="conditions">
+  <h2>세 가지 조건</h2>
+  <div class="cond">
+    <div class="card">
+      <span class="eyebrow">조건 1 · 내정</span>
+      <span class="num">7인분 → 15인분</span>
+      <p>수경재배실 1실이 약 7인분, 3단계에 2실이면 약 15인분 [추정]. 바깥 밭과 날씨가 모두 무너져도 주식이 끊기지 않습니다.</p>
+      <ul><li>전력 4중: 지열·태양광·풍력·화학연료 + 배터리 10</li><li>굴착 1,444칸 = 석재 공급원 + 강철 광맥 37·부품 광맥 15</li></ul>
+    </div>
+    <div class="card">
+      <span class="eyebrow">조건 2 · 방어·복구</span>
+      <span class="num">출입구 1 · 우회 ≥7칸</span>
+      <p>킬박스를 거치지 않고 내부에 닿으려면 어느 방이든 암반 7칸 이상을 파야 합니다. 정문은 에어록 문 2개.</p>
+      <ul><li>내부 100% 두꺼운 산 지붕: 드롭포드·박격포 무효</li><li>부상자 후송 23걸음, 피해는 킬박스에 집중</li></ul>
+    </div>
+    <div class="card">
+      <span class="eyebrow">조건 3 · 스트레스 테스트</span>
+      <span class="num">25종 점검</span>
+      <p>설계로 해결 14 · 운영으로 해결 7 · 잔여 위험 4(관리 대상). 잔여 위험은 숨기지 않고 대응 절차를 둡니다.</p>
+      <ul><li>공사 중간(1단계 완료) 상태도 단일 출입구 검증</li><li>냉동고 -20°C = 감염 불가 구역</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="checks">
+  <h2>기계 검증</h2>
+  <p class="lede">설계 정의와 지형 데이터를 넣으면 아래 7항목을 검사하고, 하나라도 실패하면 결과를 내지 않습니다. 일부러 봉인벽을 뺀 사본으로 돌리면 V2·V7이 실패하는 것도 확인했습니다.</p>
+  <div class="checks" id="checklist"></div>
+</section>
+
+<section id="spaces">
+  <h2>공간 목록</h2>
+  <p class="lede">우회 굴착은 킬박스를 쓰지 않고 바깥에서 그 공간까지 부숴야 하는 암반·벽·문 칸 수입니다.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ID</th><th>시설</th><th>좌표</th><th>크기</th><th>단계</th><th>신규 굴착</th><th>우회 굴착</th><th>용도</th></tr></thead>
+    <tbody id="spaceRows"></tbody>
+  </table></div>
+</section>
+
+<section id="routes">
+  <h2>동선</h2>
+  <p class="lede">방 중심 사이 실제 보행 칸 수(BFS). 식량 사슬은 이렇게 이어집니다.</p>
+  <div class="chain"><span class="node">수경재배실</span><span class="step">9</span><span class="node">주방</span><span class="step">11</span><span class="node">냉동고</span><span class="step">17</span><span class="node">대회당</span></div>
+  <div class="tablewrap"><table><thead><tr><th>구간</th><th>걸음</th></tr></thead><tbody id="routeRows"></tbody></table></div>
+</section>
+
+<section id="power">
+  <h2>식량과 전력</h2>
+  <div class="two">
+    <div class="card">
+      <h3>전력 수지 (3단계 완성 기준)</h3>
+      <div class="bars" id="powerBars"></div>
+      <p class="hint">태양등은 밤에 자동 소등된다는 전제 [확인 필요]. 바람 없는 밤 부족분 약 810Wd는 배터리가 메웁니다.</p>
+      <p><b>부하 차단 순서:</b> 태양등 2 → 오락 기기 → 작업장 → 태양등 1 → 연구. 냉각기·전기 억제기·병원·조명은 끄지 않습니다.</p>
+    </div>
+    <div class="card">
+      <h3>식량</h3>
+      <div class="tablewrap"><table><tbody>
+        <tr><td>1인 소비</td><td>1.6 영양/일 <span class="tag">출처</span></td></tr>
+        <tr><td>1인 원재료</td><td>≈0.89 영양/일 (재료 0.5 → 식사 0.9)</td></tr>
+        <tr><td>수경 쌀</td><td>≈0.14 영양/칸/일 <span class="tag">추정</span></td></tr>
+        <tr><td>수경실 1개</td><td>재배기 약 12기 ≈ 7인분</td></tr>
+        <tr><td>바깥 쌀 F1</td><td>300칸 ≈ 16.5 영양/일 (생장기)</td></tr>
+        <tr><td>겨울 비축 예</td><td>12인·수경 1실·30일 → 쌀 ≈ 2,700개</td></tr>
+        <tr><td>계율 제외</td><td>영양죽·버섯·곤충 고기</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<section id="defense">
+  <h2>킬박스 겸 현관</h2>
+  <div class="two">
+    <div class="card">
+      <ol class="steps">
+        <li>적은 폭 1 입구 터널 (165,170~175)을 한 줄로 지나 남동 모서리 (165,176)로 들어옵니다.</li>
+        <li>방어선은 서쪽 끝. 모래주머니 x=154, 정착민 x 151~153, 포탑 (152,177)·(152,182).</li>
+        <li>적은 엄폐물 없는 10칸을 건너야 합니다. 킬박스엔 가구·저장구역을 두지 않습니다.</li>
+        <li>방어선 뒤 에어록: 문 (152,184) → 전실 → 문 (152,186). 독가스·화염 차단.</li>
+        <li>입구에 문을 달지 않습니다. 열린 길이 있어야 일반 습격이 벽을 파지 않습니다.</li>
+        <li>냉동고 냉각기 3기는 방어선 뒤 벽(x=150)에서 킬박스로 배기합니다.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>습격 유형별</h3>
+      <div class="tablewrap"><table><tbody>
+        <tr><td>드롭포드</td><td>내부 100% 두꺼운 지붕 → 산 밖 착륙</td></tr>
+        <tr><td>박격포 공성</td><td>산 안 피해 0, 박격포 2기로 반격</td></tr>
+        <tr><td>공병</td><td>최소 7칸. 얕은 곳: 대회당·작업장·킬박스</td></tr>
+        <tr><td>돌파</td><td>정문(문 2) &lt; 우회(≥7) <span class="tag">확인 필요</span></td></tr>
+        <tr><td>메카 클러스터</td><td>지붕 아래 투하 불가, 박격포 원거리 제거</td></tr>
+        <tr><td>임피드 화염</td><td>전부 석재, 소화 팝퍼</td></tr>
+        <tr><td>오염 약탈자 독가스</td><td>에어록, 가스가 빠질 때까지 대기</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<section id="stress">
+  <h2>스트레스 테스트</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>#</th><th>사건</th><th>대응</th><th>판정</th></tr></thead>
+    <tbody id="stressRows"></tbody>
+  </table></div>
+</section>
+
+<section id="infest">
+  <h2>감염 억제</h2>
+  <p>감염은 두꺼운 산 지붕 아래, 1×1보다 큰 공간, 정착지 구조물 30칸 이내에서 시작 칸이 -17°C보다 따뜻하면 일어날 수 있습니다 [출처]. 이 설계에서는 냉동고를 뺀 내부 대부분이 해당합니다. 피할 수 없으므로 줄이고 대비합니다.</p>
+  <ol class="steps">
+    <li>용도 없는 굴착 0칸 (V4). 채광 터널은 광맥을 캔 뒤 되메웁니다.</li>
+    <li>냉동고 -20°C는 감염 불가 구역입니다.</li>
+    <li>모든 방과 통로에 조명을 둡니다. 확률을 낮추고 아노말리의 부자연적 어둠에도 대비합니다.</li>
+    <li>주 통로 방화문 (136,188)·(150,188)·(162,188)로 구획을 닫습니다.</li>
+    <li>발생하면 해당 구획을 닫고, 비전투원을 반대편으로 보낸 뒤 포탑과 전원 화력으로 둥지를 제거합니다.</li>
+  </ol>
+</section>
+
+<section id="phases">
+  <h2>단계별 순서</h2>
+  <div class="two">
+    <div class="card">
+      <h3>1단계 · 지금 → 약 30일 · 굴착 198칸</h3>
+      <ol class="steps">
+        <li>연구: 미세전자공학 기초 → 태양광 → 포탑 → 수경재배</li>
+        <li>목재 발전기 2 (145,153)·(145,156) + 배터리 2</li>
+        <li>굴착: 입구 터널 → 킬박스 → 에어록 → 주 통로 중앙 → 주방</li>
+        <li>킬박스 개통 → 냉각기 3기 → 냉동고 가동, 냉동고 옛 남문 봉인</li>
+        <li>옛 입구 (137,166~168) 봉인. 이때부터 출입은 킬박스 하나</li>
+        <li>모래주머니 설치, 밭1 수확물 냉동</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>2단계 · 약 30~90일 · 굴착 967칸</h3>
+      <p>침실·침실 복도 → 대회당 확장 → 병원 → 수경1 → 창고·작업장·연구실 → 배터리실 → 지열·숨김 전선 → 태양광 → 감옥 → 되메움 → 박격포·함정·묘지·낚시 → 기존 지상 건물 철거</p>
+      <h3 style="margin-top:8px">3단계 · 90일~ · 굴착 279칸</h3>
+      <p>수경2(8인 초과 시) → 격리동(아노말리 진행 시) → 메카 정비소(메카링크 확보 시) → 풍력 → 포탑 강화</p>
+      <h3 style="margin-top:8px">4단계 · 선택</h3>
+      <p>중력선 계류장</p>
+    </div>
+  </div>
+</section>
+
+<section id="decide">
+  <h2>함께 정할 것</h2>
+  <div class="two">
+    <div class="card">
+      <ol class="steps">
+        <li><b>목표 인구.</b> 지금 설계는 독실 10 + 부부실 1 = 12인.</li>
+        <li><b>중력선.</b> "메카노이드 신호" 퀘스트 보상이 중력 엔진입니다. 쓸지, 원정선으로만 쓸지.</li>
+        <li><b>아노말리.</b> 공허 모노리스를 조사하면 격리동이 필요합니다.</li>
+        <li><b>메카니터.</b> 메카링크를 얻으면 정비소를 열지.</li>
+        <li><b>동물.</b> 동물 스킬 0 → 기본안은 사육 없음.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>게임에서 한 번 확인할 것</h3>
+      <ul>
+        <li>태양등 야간 자동 소등</li>
+        <li>배터리 1기 용량</li>
+        <li>입구가 열린 킬박스가 외기 온도로 취급되는지</li>
+        <li>돌파 습격의 경로 선택</li>
+        <li>이 타일의 실제 겨울 길이와 기온</li>
+        <li>수경재배기 크기와 태양등 범위에 따른 실제 기수</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>근거: 세이브 해독(지형·지붕·광물 그리드, 정착민, 이념, 연구, 세력, 퀘스트) + RimWorld 위키 수치. 표기 [추정]·[확인 필요]는 검증되지 않은 값입니다.</span>
+  <span>출처: <a href="https://rimworldwiki.com/wiki/Infestation">Infestation</a> · <a href="https://rimworldwiki.com/wiki/Power">Power</a> · <a href="https://rimworldwiki.com/wiki/Hidden_conduit">Hidden conduit</a> · <a href="https://rimworldwiki.com/wiki/Electric_inhibitor">Electric inhibitor</a> · <a href="https://rimworldwiki.com/wiki/Rice_plant">Rice plant</a> · <a href="https://rimworldhub.com/post/rimworld-best-crops-tool">Best crops</a> · <a href="https://rimworldwiki.com/wiki/Grav_engine">Grav engine</a></span>
+</footer>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+const D = JSON.parse(document.getElementById('data').textContent);
+const L = D.layout, N = D.n;
+const $ = s => document.querySelector(s);
+
+/* ---------- 지형 비트맵 ---------- */
+const TC = {'.':[112,138,74],'*':[70,112,50],',':[160,155,138],'~':[110,92,64],'w':[70,125,205],
+  's':[200,170,130],'l':[205,200,180],'m':[222,222,228],'t':[130,130,138],'o':[170,160,140],
+  'S':[128,88,60],'L':[118,113,92],'M':[150,150,162],'$':[205,70,70],'C':[235,195,30],'A':[140,210,240],
+  'G':[240,160,20],'U':[60,220,110],'J':[40,150,110]};
+const ORE = new Set(['$','C','A','G','U','J']);
+const base = document.createElement('canvas'); base.width = N; base.height = N;
+function paintTerrain(showOre){
+  const ctx = base.getContext('2d'), img = ctx.createImageData(N, N);
+  for (let z = 0; z < N; z++){
+    const row = D.terrain[z], rf = D.roof[z];
+    for (let x = 0; x < N; x++){
+      let ch = row[x]; let c = TC[ch] || [175,165,140];
+      if (!showOre && ORE.has(ch)) c = [132,118,104];
+      const rock = 'SLM$CAGUJ'.includes(ch);
+      let k = 1;
+      if (rf[x] === '1') k = rock ? 0.58 : 0.8;
+      else if (rf[x] === '3') k = rock ? 0.75 : 0.9;
+      const r = c[0]*k, g = c[1]*k, b = c[2]*k;
+      const i = ((N-1-z)*N + x) * 4;
+      img.data[i]=r; img.data[i+1]=g; img.data[i+2]=b; img.data[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+/* 얇은 암석 지붕 칸 (드롭포드·박격포 차단을 보장할 수 없어 내부 공간에서 제외한 곳) */
+const thinCells = [];
+for (let z = 0; z < N; z++) for (let x = 0; x < N; x++) if (D.roof[z][x] === '3') thinCells.push([x,z]);
+
+/* ---------- 분류·색 ---------- */
+const GROUP = {MOUTH:'def',KB:'def',AIR:'def',AIRC:'def',FRZ:'food',KIT:'food',HYD1:'food',HYD2:'food',
+  HALL:'life',BC:'life',HOSP:'med',PRIS:'med',WS:'prod',STO:'prod',LAB:'prod',MECH:'prod',BAT:'power',CONT:'special'};
+const GCOL = {def:'#D04A3C',food:'#5FAEE0',life:'#EBCB78',med:'#78CC96',prod:'#C79668',power:'#F2DE4A',
+  special:'#A452B4',corr:'#E2E2DC',bed:'#F0B9CF'};
+const GNAME = {def:'방어·출입',food:'식량',life:'생활',bed:'침실',med:'의료·수감',prod:'생산',power:'전력',special:'격리(아노말리)',corr:'통로'};
+const OCOL = {F1:'#9BCB57',F2:'#B3D56A',OLD:'#C9C9C9',SOL:'#5A82E0',WIND:'#7FC9E6',APRON:'#E05A50',GRAVE:'#8A8A8A',PAD:'#C8C8FF',FISH:'#3D8BE5'};
+const grp = s => GROUP[s.id] || (s.id.startsWith('B') ? 'bed' : 'corr');
+
+/* 칸 → 공간 */
+const owner = new Map();
+L.spaces.forEach(s => { const [a,b,c,d] = s.rect; for (let z=b; z<=d; z++) for (let x=a; x<=c; x++) owner.set(x+','+z, s); });
+const outOwner = new Map();
+L.outdoor.forEach(o => { const [a,b,c,d] = o.rect; for (let z=b; z<=d; z++) for (let x=a; x<=c; x++) if(!outOwner.has(x+','+z)) outOwner.set(x+','+z, o); });
+
+/* ---------- 보기 ---------- */
+const cv = $('#cv'), ctx = cv.getContext('2d');
+const VIEWS = {core:[106,164,194,222], base:[92,112,238,226], all:[0,0,274,274]};
+let view = {x0:106, z0:164, x1:194, z1:222}, sel = null, hover = null;
+function setView(name){ const v = VIEWS[name]; view = {x0:v[0], z0:v[1], x1:v[2], z1:v[3]};
+  document.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view===name)); fit(); draw(); }
+let S = 8;
+function fit(){
+  const w = cv.clientWidth || 900;
+  const cw = view.x1 - view.x0 + 1, ch = view.z1 - view.z0 + 1;
+  S = w / cw;
+  cv.width = Math.round(w * devicePixelRatio);
+  cv.height = Math.round(ch * S * devicePixelRatio);
+  cv.style.height = (ch * S) + 'px';
+}
+const sx = x => (x - view.x0) * S, sy = z => (view.z1 - z) * S;
+function phaseOn(p){ return $('#ph'+p).checked; }
+
+function draw(){
+  const dpr = devicePixelRatio;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.imageSmoothingEnabled = false;
+  ctx.fillStyle = '#0E1113'; ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.drawImage(base, view.x0, N-1-view.z1, view.x1-view.x0+1, view.z1-view.z0+1, 0, 0, (view.x1-view.x0+1)*S, (view.z1-view.z0+1)*S);
+  const R = (r, fill, stroke, lw) => { const [a,b,c,d] = r; const X = sx(a), Y = sy(d), W = (c-a+1)*S, H = (d-b+1)*S;
+    if (fill){ ctx.fillStyle = fill; ctx.fillRect(X,Y,W,H); } if (stroke){ ctx.strokeStyle = stroke; ctx.lineWidth = lw||1; ctx.strokeRect(X+.5,Y+.5,W-1,H-1); } };
+  const C = (x, z, fill, inset) => { const i = inset||0; ctx.fillStyle = fill; ctx.fillRect(sx(x)+i, sy(z)+i, S-2*i, S-2*i); };
+  if ($('#lyRoof').checked) thinCells.forEach(([x,z]) => C(x,z,'rgba(255,90,200,.75)'));
+  L.outdoor.forEach(o => { if (!phaseOn(o.phase)) return; const col = OCOL[o.id]||'#fff'; ctx.globalAlpha = .28; R(o.rect, col); ctx.globalAlpha = 1; R(o.rect, null, col, 2); });
+  if ($('#lyNow').checked){ D.existing.forEach(([x,z,d]) => C(x,z, d==='Wall'?'#ff4fd8':'rgba(255,79,216,.6)', S>6?1:0)); }
+  L.spaces.forEach(s => { if (!phaseOn(s.phase)) return; ctx.globalAlpha = .88; R(s.rect, GCOL[grp(s)]); ctx.globalAlpha = 1; R(s.rect, null, 'rgba(0,0,0,.7)', 1); });
+  L.fill.forEach(f => { if (phaseOn(f.phase)) R(f.rect, '#333'); });
+  if (phaseOn(1)){
+    const [a,b,c,d] = L.sandbags; R([a,b,c,d], '#9A7440');
+    L.coolers.forEach(([x,z]) => C(x,z,'#18C8FF')); L.turrets.forEach(([x,z]) => C(x,z,'#FF2E2E', S>6?1:0));
+  }
+  L.sunlamps.forEach(([x,z],i) => { if (phaseOn(i?3:2)) C(x,z,'#FFFF96', S>6?1:0); });
+  const doorSpace = (x,z) => [[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dz]) => owner.get((x+dx)+','+(z+dz))).filter(Boolean);
+  L.doors.forEach(([x,z]) => { if (doorSpace(x,z).some(s => phaseOn(s.phase))) C(x,z,'#7A4A1C'); });
+  L.firedoors.forEach(([x,z]) => { if (phaseOn(2)) C(x,z,'#F06A28', Math.max(1,S/5)); });
+  if (phaseOn(2)){
+    ctx.strokeStyle = 'rgba(255,225,0,.9)'; ctx.lineWidth = Math.max(2, S/3); ctx.beginPath();
+    L.conduit.forEach(([x,z],i) => { const X = sx(x)+S/2, Y = sy(z)+S/2; i ? ctx.lineTo(X,Y) : ctx.moveTo(X,Y); }); ctx.stroke();
+  }
+  [...L.points, ...(phaseOn(1)?L.tempgen:[])].forEach(p => { const [x,z] = p.xz; ctx.fillStyle = '#FF8C00'; ctx.beginPath(); ctx.arc(sx(x)+S/2, sy(z)+S/2, Math.max(3,S*.6), 0, 7); ctx.fill(); ctx.strokeStyle='#000'; ctx.lineWidth=1; ctx.stroke(); });
+  D.features.forEach(([x,z,n]) => { if (x<view.x0||x>view.x1||z<view.z0||z>view.z1) return; ctx.strokeStyle='#FF3B3B'; ctx.lineWidth=2; ctx.strokeRect(sx(x)-2, sy(z)-2, S+4, S+4); });
+  if (sel){ const [a,b,c,d] = sel.rect; ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.setLineDash([6,4]); ctx.strokeRect(sx(a)-2, sy(d)-2, (c-a+1)*S+4, (d-b+1)*S+4); ctx.setLineDash([]); }
+  if ($('#lyLbl').checked && S >= 5){
+    ctx.font = `600 ${Math.max(10, Math.min(13, S*1.1))}px "IBM Plex Sans KR", system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const lab = (r, t, alt) => { const [a,b,c,d] = r; const X = (sx(a)+sx(c)+S)/2, Y = (sy(d)+sy(b)+S)/2; let w = ctx.measureText(t).width;
+      if (w > (c-a+1)*S + 18 && alt){ t = alt; w = ctx.measureText(t).width; }
+      if (w > (c-a+1)*S + 18) return; ctx.fillStyle = 'rgba(0,0,0,.62)'; ctx.fillRect(X-w/2-3, Y-8, w+6, 16); ctx.fillStyle = '#fff'; ctx.fillText(t, X, Y+.5); };
+    L.spaces.forEach(s => { if (s.kind==='room' && phaseOn(s.phase)) lab(s.rect, s.id.startsWith('B')&&s.id!=='BAT'&&s.id!=='BC' ? s.id : s.name.split('(')[0], s.id); });
+    L.outdoor.forEach(o => { if (phaseOn(o.phase)) lab(o.rect, o.name.split(':')[0].replace('(선택) ','')); });
+  }
+  // 격자 눈금
+  ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.font = '11px "IBM Plex Mono", monospace'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  const step = (view.x1-view.x0) > 150 ? 25 : 10;
+  for (let x = Math.ceil(view.x0/step)*step; x <= view.x1; x += step){ ctx.fillRect(sx(x), 0, 1, 6); ctx.fillText(x, sx(x)+2, 2); }
+  for (let z = Math.ceil(view.z0/step)*step; z <= view.z1; z += step){ ctx.fillRect(0, sy(z), 6, 1); ctx.fillText(z, 8, sy(z)-6); }
+}
+
+/* ---------- 상호작용 ---------- */
+const TN = {'.':'흙','*':'비옥토',',':'자갈','~':'진흙','w':'얕은 물','s':'사암 바닥','l':'석회암 바닥','m':'대리석 바닥','t':'고대 바닥','o':'돌덩이',
+  'S':'사암','L':'석회암','M':'대리석','$':'강철 광맥','C':'부품 광맥','A':'은 광맥','G':'금 광맥','U':'우라늄 광맥','J':'비취 광맥'};
+function cellAt(ev){ const r = cv.getBoundingClientRect(); const x = Math.floor((ev.clientX - r.left)/S + view.x0); const z = Math.floor(view.z1 - (ev.clientY - r.top)/S + 1);
+  return (x>=0&&x<N&&z>=0&&z<N) ? [x,z] : null; }
+function showCoord(c){
+  if (!c){ $('#coord').textContent = '지도 위에 마우스를 올리세요'; return; }
+  const [x,z] = c, ch = D.terrain[z][x], rf = D.roof[z][x];
+  const roof = {'1':'두꺼운 산 지붕','2':'건설 지붕','3':'얇은 암석 지붕'}[rf] || '지붕 없음';
+  const s = owner.get(x+','+z), o = outOwner.get(x+','+z);
+  $('#coord').textContent = `(${x}, ${z}) · ${TN[ch]||ch} · ${roof}` + (s ? ` · ${s.name}` : o ? ` · ${o.name}` : '');
+}
+const esc = t => String(t).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function showSpace(s, isOut){
+  sel = s;
+  if (!s){ $('#info').innerHTML = '<h3>공간을 누르면 상세 정보</h3><p class="hint">드래그로 이동, 휠 또는 ＋/－로 확대.</p>'; draw(); return; }
+  const [a,b,c,d] = s.rect;
+  let kv = `<dt>좌표</dt><dd class="mono">(${a},${b})~(${c},${d})</dd><dt>단계</dt><dd>${s.phase}${s.phase===4?' (선택)':''}</dd>`;
+  if (!isOut) kv += `<dt>크기</dt><dd>${esc(s.size)} (${s.cells}칸)</dd><dt>신규 굴착</dt><dd>${s.mine}칸</dd><dt>우회 굴착</dt><dd>${s.bypass_dig}칸</dd><dt>산 지붕</dt><dd>${s.thick_pct}%</dd>`;
+  $('#info').innerHTML = `<span class="eyebrow">${isOut?'산 바깥':GNAME[grp(s)]}</span><h3>${esc(s.name)} <span class="ph">${esc(s.id)}</span></h3><p>${esc(s.note)}</p><dl class="kv">${kv}</dl>`;
+  draw();
+}
+let drag = null;
+cv.addEventListener('pointerdown', e => { drag = {x:e.clientX, y:e.clientY, v:{...view}, moved:false}; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointermove', e => {
+  if (drag){ const dx = (e.clientX-drag.x)/S, dz = (e.clientY-drag.y)/S; if (Math.abs(dx)+Math.abs(dz) > .5) drag.moved = true;
+    view = {x0:drag.v.x0-dx, x1:drag.v.x1-dx, z0:drag.v.z0+dz, z1:drag.v.z1+dz}; draw(); }
+  showCoord(cellAt(e));
+});
+cv.addEventListener('pointerup', e => { const was = drag; drag = null; if (was && !was.moved){ const c = cellAt(e); if (!c) return;
+  const s = owner.get(c[0]+','+c[1]); const o = outOwner.get(c[0]+','+c[1]); showSpace(s || o || null, !s && !!o); } });
+cv.addEventListener('pointerleave', () => showCoord(null));
+function zoom(f, cx, cz){ const w = (view.x1-view.x0)*f, h = (view.z1-view.z0)*f;
+  cx = cx ?? (view.x0+view.x1)/2; cz = cz ?? (view.z0+view.z1)/2;
+  const rx = (cx-view.x0)/(view.x1-view.x0), rz = (cz-view.z0)/(view.z1-view.z0);
+  if (w < 20 || w > 300) return;
+  view = {x0:cx-w*rx, x1:cx-w*rx+w, z0:cz-h*rz, z1:cz-h*rz+h}; fit(); draw(); }
+cv.addEventListener('wheel', e => { e.preventDefault(); const c = cellAt(e); zoom(e.deltaY>0?1.2:1/1.2, c&&c[0], c&&c[1]); }, {passive:false});
+$('#zin').onclick = () => zoom(1/1.25); $('#zout').onclick = () => zoom(1.25);
+document.querySelectorAll('[data-view]').forEach(b => b.onclick = () => setView(b.dataset.view));
+['ph1','ph2','ph3','ph4','lyNow','lyRoof','lyLbl'].forEach(id => $('#'+id).addEventListener('change', draw));
+$('#lyOre').addEventListener('change', () => { paintTerrain($('#lyOre').checked); draw(); });
+window.addEventListener('resize', () => { fit(); draw(); });
+
+/* ---------- 범례·표 ---------- */
+$('#legend').innerHTML = Object.entries(GNAME).map(([k,n]) => `<span><i class="sw" style="background:${GCOL[k]}"></i>${n}</span>`).join('') +
+  `<span><i class="sw" style="background:#333"></i>되메움·봉인</span><span><i class="sw" style="background:#7A4A1C"></i>문</span>
+   <span><i class="sw" style="background:#F06A28"></i>방화문</span><span><i class="sw" style="background:#18C8FF"></i>냉각기</span>
+   <span><i class="sw" style="background:#FF2E2E"></i>포탑</span><span><i class="sw" style="background:#9A7440"></i>모래주머니</span>
+   <span><i class="sw" style="background:#FFE100"></i>숨김 전선</span><span><i class="sw" style="background:#FF8C00;border-radius:50%"></i>발전·박격포</span>
+   <span><i class="sw" style="background:transparent;border:2px solid #FF3B3B"></i>특수 지형</span>`;
+const CHECKS = [['V1','겹침·벽 누락·문 연결 0건'],['V2','킬박스를 막으면 외부→내부 경로 0'],['V3','모든 내부 공간이 외부와 연결'],
+  ['V4','용도 없는 굴착 칸 0 (기존 61칸 되메움)'],['V5','야외 시설이 암반·산지붕 위에 없음'],['V6','내부 100% 두꺼운 산 지붕 (입구 터널 제외)'],['V7','1단계 공사 중간에도 단일 출입구']];
+const ok = (L.problems||[]).length === 0;
+$('#checklist').innerHTML = CHECKS.map(([k,t]) => `<div class="check"><span class="mark">${ok?'통과':'실패'}</span><span><b class="mono">${k}</b> ${t}</span></div>`).join('');
+$('#spaceRows').innerHTML = L.spaces.map(s => { const [a,b,c,d] = s.rect;
+  return `<tr data-id="${s.id}"><td class="mono">${s.id}</td><td>${esc(s.name)}</td><td class="mono">(${a},${b})~(${c},${d})</td><td>${s.size}</td><td>${s.phase}</td><td>${s.mine}</td><td>${s.bypass_dig}</td><td>${esc(s.note)}</td></tr>`; }).join('') +
+  `<tr><td></td><td><b>합계</b></td><td></td><td></td><td></td><td><b>${L.stats.new_mined}</b></td><td></td><td>1단계 ${L.stats.mined_by_phase['1']} · 2단계 ${L.stats.mined_by_phase['2']} · 3단계 ${L.stats.mined_by_phase['3']} · 되메움 ${L.stats.filled}</td></tr>`;
+document.querySelectorAll('#spaceRows tr[data-id]').forEach(tr => tr.addEventListener('click', () => {
+  const s = L.spaces.find(q => q.id === tr.dataset.id); const [a,b,c,d] = s.rect;
+  const w = Math.max(40, (c-a)*3), h = w*0.66, cx = (a+c)/2, cz = (b+d)/2;
+  view = {x0:cx-w/2, x1:cx+w/2, z0:cz-h/2, z1:cz+h/2}; fit(); showSpace(s, false);
+  document.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-pressed','false'));
+  $('#map').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+}));
+$('#routeRows').innerHTML = L.routes.map(r => `<tr><td>${esc(r.label)}</td><td class="mono">${r.steps}</td></tr>`).join('');
+const PW = [['밤 소비',5400,'use'],['낮 소비',11200,'use'],['지열',3600,'sup'],['태양광 낮 최대',20400,'sup'],['풍력 최대',6900,'sup'],['비상 발전',2000,'sup']];
+const PMAX = 21000;
+$('#powerBars').innerHTML = PW.map(([n,v,k]) => `<div class="bar"><span>${n}</span><span class="track"><span class="fill ${k==='sup'?'sup':''}" style="width:${(v/PMAX*100).toFixed(1)}%"></span></span><span class="v">${v.toLocaleString()}W</span></div>`).join('');
+const ST = [
+ ['대규모 도보 습격','킬박스·에어록','ok'],['드롭포드','내부 100% 두꺼운 산 지붕','ok'],['박격포 공성','지붕 + 박격포 반격 (바깥 피해만)','warn'],
+ ['공병','최소 7칸 굴착 + 방화문','warn'],['돌파','정문 비용이 최저 (확인 필요)','risk'],['메카 클러스터','지붕 + 박격포','ok'],
+ ['감염','§감염 억제 5원칙','risk'],['미친 동물 무리','산 안 대기','ok'],['태양 플레어','냉동고 자연암 단열, 수경 작물 단기 생존','warn'],
+ ['일식','지열·화학연료·배터리 + 부하 차단','ok'],['합선','숨김 전선(면역), 배터리 격리','ok'],['독성 낙진','생활 전부 지붕 아래 + 수경','ok'],
+ ['화산 겨울','수경 + 비축','ok'],['혹서·혹한','산 내부 + 냉난방','ok'],['병충해','수경·밭 분리','warn'],['역병','병원 + 초면역 2명','warn'],
+ ['정신 붕괴','독실·대회당·미관','warn'],['화재','석재 구조, 소화 팝퍼','ok'],['대량 부상','병원이 에어록 뒤 23걸음','ok'],
+ ['아노말리 실체 출현','방화문 구획, 조명','risk'],['부자연적 어둠','전 구역 조명','ok'],['격리 탈출','자연암 격리동, 침실과 69걸음','risk'],
+ ['태양 돼지(오디세이)','지붕 → 착륙은 바깥','ok'],['고대 동면관 단지','6인+포탑 전 개봉 금지','warn'],['인원 감소','수경 1실 7인분 → 소수로도 식량 유지','ok']];
+const SL = {ok:['설계로 해결','p-ok'], warn:['운영으로 해결','p-warn'], risk:['잔여 위험','p-risk']};
+$('#stressRows').innerHTML = ST.map(([e,r,k],i) => `<tr><td class="mono">${i+1}</td><td>${e}</td><td>${r}</td><td><span class="pill ${SL[k][1]}">${SL[k][0]}</span></td></tr>`).join('');
+
+paintTerrain(true); fit(); draw();
+})();
+</script>
