@@ -1,5 +1,23 @@
 {
  "spaces": {
+  "BTA": {
+   "name": "미끼 벽장 통로 1",
+   "cells": 2,
+   "exposed_human": 2,
+   "exposed_mech": 2
+  },
+  "BTB": {
+   "name": "미끼 벽장 통로 2",
+   "cells": 1,
+   "exposed_human": 1,
+   "exposed_mech": 1
+  },
+  "BTT": {
+   "name": "미끼 벽장(꺼진 포탑)",
+   "cells": 1,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
   "MZT": {
    "name": "미로: 진입 터널",
    "cells": 5,

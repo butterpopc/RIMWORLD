@@ -138,6 +138,9 @@ ETYPES = {
     "rocketeer":   dict(spd=4.6, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.30, wpn="doomsday", skill=8, mdps=4.0, map=0.1, kind="human"),
     "neanderthal": dict(spd=4.0, size=1.0, hs=1.0, pain=0.5, inc=0.75, arm=0.05, wpn=None, skill=6, mdps=9.0, mhit=12.0, map=0.15, kind="human"),  # 위키 유전자: 통증 ×0.5, 받는 피해 ×0.75. 속도·근접 [가정]
     "monosword":   dict(spd=4.6, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.45, wpn=None, skill=8, mdps=10.0, mhit=25.0, map=0.83, kind="human", shield=1.1),  # 위키 단분자검 평균 DPS 12·관통 83%, 보호막 1.1/0.033
+    "bulbfreak":   dict(spd=3.8, size=3.5, hs=0.3, pain=1.0, inc=1.0, arm=0.0, wpn=None, skill=0, mdps=1.86, mhit=7.0, map=0.1, kind="entity", split=("fingerspike", 4)),   # 위키(검색 요약): 3.8 c/s, 체력 30%(의심), 몸크기 3.5, DPS 1.86, 죽으면 분열. 분열 수 [가정 4]
+    "bulbfreak_hs3": dict(spd=3.8, size=3.5, hs=3.0, pain=1.0, inc=1.0, arm=0.0, wpn=None, skill=0, mdps=1.86, mhit=7.0, map=0.1, kind="entity", split=("fingerspike", 4)),  # 민감도: 체력 300%
+    "fingerspike": dict(spd=1.2, size=0.5, hs=0.5, pain=1.0, inc=1.0, arm=0.0, wpn=None, skill=0, mdps=3.5, mhit=7.0, map=0.1, kind="entity"),   # 위키(검색 요약)
     "fleshbeast":  dict(spd=4.0, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.0, wpn=None, skill=0, mdps=5.0, map=0.1, kind="entity"),   # '살종양' 정체 미확인 → 중형 근접 살덩이 짐승 [가정]
     "centipede":   dict(spd=1.9, size=1.8, hs=4.32, pain=None, inc=1.0, arm=0.72, wpn="hcb", skill=8, mdps=6.0, map=0.2, kind="mech"),  # 위키: 예리 72%, 1.9 c/s, 체력 432%. 몸크기 [가정]
     "triple_rkt":  dict(spd=4.6, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.30, wpn="triple", skill=8, mdps=4.0, map=0.1, kind="human"),
@@ -441,6 +444,14 @@ def run(scn, rng_seed, doctrine):
                 if u.shots >= u.wpn["burst"]: u.stance = "cool"; u.stance_t = T + u.wpn["cool"]
                 else: u.stance_t = T + u.wpn["gap"]
             if u.stance == "cool" and T >= u.stance_t: u.stance = None
+        # --- 분열(살종양=bulbfreak 등) ---
+        for e in list(en):
+            if e.p.get("split") and not e.active and not getattr(e, "split_done", False) and not e.fled:
+                e.split_done = True
+                kind, k = e.p["split"]
+                for _ in range(k):
+                    ne = Unit(kind, "enemy", t0=T); ne.idx = e.idx; ne.nextmove = T; ne.contact = e.contact
+                    en.append(ne); log["split_spawn"] += 1
         # --- 도주 ---
         humans = [e for e in en if e.p["kind"] in FLEE]
         if humans and sum(1 for e in humans if e.down or e.dead) >= flee_at * len(humans):
@@ -455,7 +466,9 @@ def run(scn, rng_seed, doctrine):
                 en_left=sum(e.active for e in en), contact=log["contact"], log=dict(log))
 
 SCN = {
-    "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2)": dict(enemies=[("minigunner", 1), ("centipede", 1), ("rocketeer", 1), ("neanderthal", 3), ("monosword", 1), ("fleshbeast", 2)]),
+    "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2)": dict(enemies=[("minigunner", 1), ("centipede", 1), ("rocketeer", 1), ("neanderthal", 3), ("monosword", 1), ("bulbfreak", 2)]),
+    "T1e 살종양(bulbfreak) 2": dict(enemies=[("bulbfreak", 2)]),
+    "T1e' 살종양 2 (체력 300% 민감도)": dict(enemies=[("bulbfreak_hs3", 2)]),
     "T1a 둠스데이 단독": dict(enemies=[("rocketeer", 1)]),
     "T1b 센티피드 단독": dict(enemies=[("centipede", 1)]),
     "T1c 네안데르탈 3": dict(enemies=[("neanderthal", 3)]),

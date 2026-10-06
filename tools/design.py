@@ -32,6 +32,13 @@ P1, P2, P3, P4 = 1, 2, 3, 4
 #   → 근접 방어선(주 통로 155~157,188) → 응급실 ER
 SPACES = [
     # ── 킬존 ──
+    ("BTA", "미끼 벽장 통로 1", "corridor", (187, 170, 188, 170), P1,
+     "진입 터널 (186,170)에서 동쪽 2칸 막다른 곁길. 미로를 지나는 적은 곁길 안으로 들어올 일이 없다."),
+    ("BTB", "미끼 벽장 통로 2", "corridor", (188, 171, 188, 171), P1,
+     "북쪽으로 꺾음. 이 꺾임 때문에 미로 어느 칸에서도 벽장 문이 보이지 않는다(부수기는 반경 5 + 사선 필요)."),
+    ("BTT", "미끼 벽장(꺼진 포탑)", "room", (188, 173, 188, 173), P1,
+     "전원 꺼진 미니 포탑 1기, 문 (188,172) 닫힘. 적의 전투 상태 판정(EnemiesAreNearby)은 문 너머·전원 무관으로 이 포탑을 센다 → 미로 입구부터 폰 충돌(1명씩). "
+     "회피 격자는 포탑과 사선이 닿는 칸에만 생기므로 닫힌 문 앞 1칸뿐 → 공병·돌파 우회 없음(raid_sim)."),
     ("MZT", "미로: 진입 터널", "corridor", (186, 168, 186, 172), P1,
      "산 표면(186,167)에서 시작. 문 없음 — 열린 길이 있어야 일반 습격이 벽을 파지 않는다."),
     ("MZA", "미로: 1구간", "corridor", (178, 173, 186, 173), P1, "서쪽 9칸. 바리케이드 격칸(이동 속도 24%). 1.6에서 적은 그 위에서도 멈춰 쏠 수 있다(사격 위치 선호 ×0.4)."),
@@ -92,13 +99,14 @@ for r, (z0, z1, dz) in enumerate(BED_ROWS):
         SPACES.append((f"B{r+1}{c+1}", f"침실 {r*5+c+1}", "room", (x0, z0, x0 + 3, z1), P2,
                        "4×5 독실. 킬존 출구 뒤 깊은 곳(돌파·공병의 목적지가 침대이므로)."))
 
-KILLZONE = ("MZT", "MZA", "MZ1", "MZB", "MZ2", "MZC", "MZD", "MZE", "MZM", "LR")   # 바깥과 이어진 전투 구역
+KILLZONE = ("MZT", "MZA", "MZ1", "MZB", "MZ2", "MZC", "MZD", "MZE", "MZM", "LR", "BTA", "BTB", "BTT")   # 바깥과 이어진 전투 구역
 D1, D2, MELEE = (151, 183), (152, 185), (156, 187)
 ENTRANCE = (177, 182)
 FIRING_LINE = (151, 176, 153, 182)
 SHOOTERS = [(153, z) for z in range(176, 181)]   # 사수 5자리: 176~179 모래주머니 뒤, 180 벽 뒤(몸 내밀기)
 DOORS = [
     D1, D2, MELEE,                          # 방폭문 2, 근접 방어 문
+    (188, 172),                             # 미끼 벽장 문(늘 닫힘)
     (155, 189),                             # 응급실 ↔ 근접 방어선
     (136, 181), (138, 181),                 # 창고 / 냉동고 ↔ TA
     (127, 187), (144, 187),                 # 창고 / 냉동고 ↔ 주 통로
@@ -132,6 +140,7 @@ SANDBAGS = (154, 176, 154, 179)
 FL_WALLS = [(154, 180), (154, 181), (154, 182)]   # 사대 북쪽 벽: 입구 터널 축(z=182) 쪽 사수 자리를 가려 '엿보기·사거리 밖' 사선 제거(standoff_sim)
 TURRETS = []   # 킬존 시야 안 포탑 금지: AvoidGrid는 전원과 무관하게 포탑을 회피 → 똑똑한 돌파·공병 우회(raid_sim)
 BARRICADES = [(x, 173) for x in range(179, 187, 2)] + [(x, 175) for x in range(179, 187, 2)]
+BAIT_TURRET = [(188, 173)]                     # 벽장 속 꺼진 미니 포탑(전투 상태 유발용, 회피 격자는 문 앞 1칸)
 BAIT = [(183, 166), (188, 165)]               # 미끼 가구: 포탑이 아닌 값싼 가구(반경 5칸 '부수기' 대상, 회피 격자 없음)
 SUNLAMPS = [(144, 201), (144, 213)]
 MELEE_SPOTS = [(155, 188), (156, 188), (157, 188)]
@@ -238,7 +247,7 @@ def main():
         if owner.get((x, z)) is None:
             problems.append(f"V1 포탑/바리케이드가 공간 밖 {(x, z)}")
     # V1 맞닿음
-    allowed = {frozenset(p) for p in [("MZT", "MZA"), ("MZA", "MZ1"), ("MZ1", "MZB"), ("MZB", "MZ2"), ("MZ2", "MZC"),
+    allowed = {frozenset(p) for p in [("MZT", "BTA"), ("BTA", "BTB"), ("MZT", "MZA"), ("MZA", "MZ1"), ("MZ1", "MZB"), ("MZB", "MZ2"), ("MZ2", "MZC"),
                                       ("MZC", "MZD"), ("MZD", "MZE"), ("MZE", "MZM"), ("MZM", "LR"), ("TA", "M1C"), ("TB", "M1C"), ("M1W", "M1C"), ("M1C", "M1E"),
                                       ("C3", "M1E"), ("C3", "CB"), ("C3", "CH"), ("CB", "CV")]}
     for (x, z), a in owner.items():
@@ -479,7 +488,7 @@ def main():
 
     bp = dict(spaces=[dict(id=s[0], name=s[1], kind=s[2], rect=s[3], phase=s[4], note=s[5], **{k: v for k, v in rep[s[0]].items() if k != "name"}) for s in SPACES],
               doors=[list(d) for d in DOORS], firedoors=[list(d) for d in FIREDOORS],
-              fill=[dict(rect=r, note=n, phase=p) for r, n, p in FILL], coolers=COOLERS, sandbags=SANDBAGS, fl_walls=FL_WALLS, turrets=TURRETS,
+              fill=[dict(rect=r, note=n, phase=p) for r, n, p in FILL], coolers=COOLERS, sandbags=SANDBAGS, fl_walls=FL_WALLS, turrets=TURRETS, bait_turret=BAIT_TURRET,
               sunlamps=SUNLAMPS,
               outdoor=[dict(id=o[0], name=o[1], rect=o[2], phase=o[3], note=o[4]) for o in OUTDOOR],
               points=[dict(xz=list(p), name=n) for p, n in POINT_OUT], tempgen=[dict(xz=list(p), name=n) for p, n in TEMP_GEN],

@@ -139,10 +139,11 @@ for z in range(10, 200, 30):
 
 TURRETS_FL = [(152, 176), (152, 182)]           # 시험용: 사대 모서리 포탑 2기
 DECOY = [(184, 166)]                             # 시험용: 미로 입구 앞 전원 끈 포탑
+BAIT_T = [tuple(c) for c in bp.get("bait_turret", [])]   # 설계: 닫힌 벽장 속 꺼진 포탑(사선이 문에서 막혀 회피 격자가 거의 없음)
 MORTARS = [tuple(p["xz"]) for p in bp["points"] if "박격포" in p["name"]]
 scen = []
 for rock_hp in (600, 1000, 1500):
-    for label, turrets in (("포탑 없음", []), ("사대 포탑 2", TURRETS_FL), ("미끼 포탑 1", DECOY), ("사대 2 + 미끼 1", TURRETS_FL + DECOY)):
+    for label, turrets in (("포탑 없음", []), ("벽장 꺼진 포탑(설계)", BAIT_T), ("사대 포탑 2", TURRETS_FL), ("노출 미끼 포탑 1", DECOY), ("사대 2 + 노출 미끼 1", TURRETS_FL + DECOY)):
         for smart in (False, True):
             if not smart and turrets:
                 continue  # 일반 돌파는 회피격자 미사용 → 포탑 유무와 무관

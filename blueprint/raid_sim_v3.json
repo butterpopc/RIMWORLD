@@ -74,6 +74,15 @@
   },
   {
    "rock_hp": 600,
+   "turrets": "벽장 꺼진 포탑(설계)",
+   "smart": true,
+   "pairs": 156,
+   "via_killzone": 156,
+   "pct": 100,
+   "breach_into": {}
+  },
+  {
+   "rock_hp": 600,
    "turrets": "사대 포탑 2",
    "smart": true,
    "pairs": 156,
@@ -86,7 +95,7 @@
   },
   {
    "rock_hp": 600,
-   "turrets": "미끼 포탑 1",
+   "turrets": "노출 미끼 포탑 1",
    "smart": true,
    "pairs": 156,
    "via_killzone": 60,
@@ -97,14 +106,14 @@
   },
   {
    "rock_hp": 600,
-   "turrets": "사대 2 + 미끼 1",
+   "turrets": "사대 2 + 노출 미끼 1",
    "smart": true,
    "pairs": 156,
    "via_killzone": 0,
    "pct": 0,
    "breach_into": {
-    "FRZ": 142,
-    "MZB": 14
+    "FRZ": 129,
+    "BTT": 27
    }
   },
   {
@@ -119,6 +128,15 @@
   {
    "rock_hp": 1000,
    "turrets": "포탑 없음",
+   "smart": true,
+   "pairs": 156,
+   "via_killzone": 156,
+   "pct": 100,
+   "breach_into": {}
+  },
+  {
+   "rock_hp": 1000,
+   "turrets": "벽장 꺼진 포탑(설계)",
    "smart": true,
    "pairs": 156,
    "via_killzone": 156,
@@ -140,18 +158,18 @@
   },
   {
    "rock_hp": 1000,
-   "turrets": "미끼 포탑 1",
+   "turrets": "노출 미끼 포탑 1",
    "smart": true,
    "pairs": 156,
-   "via_killzone": 0,
-   "pct": 0,
+   "via_killzone": 12,
+   "pct": 8,
    "breach_into": {
-    "FRZ": 156
+    "FRZ": 144
    }
   },
   {
    "rock_hp": 1000,
-   "turrets": "사대 2 + 미끼 1",
+   "turrets": "사대 2 + 노출 미끼 1",
    "smart": true,
    "pairs": 156,
    "via_killzone": 0,
@@ -180,6 +198,15 @@
   },
   {
    "rock_hp": 1500,
+   "turrets": "벽장 꺼진 포탑(설계)",
+   "smart": true,
+   "pairs": 156,
+   "via_killzone": 156,
+   "pct": 100,
+   "breach_into": {}
+  },
+  {
+   "rock_hp": 1500,
    "turrets": "사대 포탑 2",
    "smart": true,
    "pairs": 156,
@@ -192,7 +219,7 @@
   },
   {
    "rock_hp": 1500,
-   "turrets": "미끼 포탑 1",
+   "turrets": "노출 미끼 포탑 1",
    "smart": true,
    "pairs": 156,
    "via_killzone": 0,
@@ -203,7 +230,7 @@
   },
   {
    "rock_hp": 1500,
-   "turrets": "사대 2 + 미끼 1",
+   "turrets": "사대 2 + 노출 미끼 1",
    "smart": true,
    "pairs": 156,
    "via_killzone": 0,

@@ -13,6 +13,7 @@
 | `blueprint/raid_sim_report.txt`, `raid_sim_v3.json` | 공병·돌파 경로 모의 실험 결과 |
 | `blueprint/drop_sim_report.txt`, `drop_sim_v3.json` | 드롭포드(중앙 투하) 착륙 가능성 분석 |
 | `blueprint/standoff_report.txt`, `standoff_v3.json` | 사선·엄폐 분석 + 비대칭 화망 검사(E1 엿보기 0, E2 사거리 30.9 밖 사선 0; 실패 시 종료코드 1) |
+| `blueprint/region_report.txt`, `region_v4.json` | 적 전투 상태 범위(지역 탐색), 미끼 벽장 문 노출·회피 격자 |
 | `blueprint/stress_report.txt`, `stress_v4.json` | 스트레스 테스트 원문 (조건마다 200회) |
 | `blueprint/core_v3.png`, `killzone_v3.png`, `overview_v3.png` | 실제 지형 위 배치도 |
 | `planner/index.html` | 인터랙티브 설계도 (단계·레이어·사선 토글, 좌표 검사기) |
@@ -30,6 +31,7 @@ python3 -I tools/design.py arr.pkl things.pkl blueprint          # 배치 정의
 python3 -I tools/raid_sim.py arr.pkl things.pkl blueprint/layout_v3.json blueprint/raid_sim_v3.json   # 공병·돌파 경로 모의 실험
 python3 -I tools/drop_sim.py arr.pkl blueprint/layout_v3.json blueprint/drop_sim_v3.json      # 드롭포드 착륙 분석
 python3 -I tools/standoff_sim.py arr.pkl blueprint/layout_v3.json blueprint/standoff_v3.json > blueprint/standoff_report.txt   # 사선·엄폐
+python3 -I tools/region_sim.py arr.pkl blueprint/layout_v3.json blueprint/region_v4.json > blueprint/region_report.txt   # 적 전투 상태(1명씩 입장) 범위·미끼 벽장 노출
 python3 -I tools/stress_sim.py arr.pkl blueprint/layout_v3.json blueprint/stress_v4.json 200 > blueprint/stress_report.txt   # 스트레스 테스트
 python3 -I tools/render.py arr.pkl blueprint/layout_v3.json blueprint/core_v3.png 106 162 194 224 12
 python3 -I tools/render.py arr.pkl blueprint/layout_v3.json blueprint/killzone_v3.png 136 162 192 200 20

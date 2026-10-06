@@ -1,6 +1,69 @@
 {
  "spaces": [
   {
+   "id": "BTA",
+   "name": "미끼 벽장 통로 1",
+   "kind": "corridor",
+   "rect": [
+    187,
+    170,
+    188,
+    170
+   ],
+   "phase": 1,
+   "note": "진입 터널 (186,170)에서 동쪽 2칸 막다른 곁길. 미로를 지나는 적은 곁길 안으로 들어올 일이 없다.",
+   "size": "2x1",
+   "cells": 2,
+   "mine": 2,
+   "existing": 0,
+   "thick_pct": 100,
+   "rock_cover": 3,
+   "infest_cells": 2,
+   "bypass_dig": 4
+  },
+  {
+   "id": "BTB",
+   "name": "미끼 벽장 통로 2",
+   "kind": "corridor",
+   "rect": [
+    188,
+    171,
+    188,
+    171
+   ],
+   "phase": 1,
+   "note": "북쪽으로 꺾음. 이 꺾임 때문에 미로 어느 칸에서도 벽장 문이 보이지 않는다(부수기는 반경 5 + 사선 필요).",
+   "size": "1x1",
+   "cells": 1,
+   "mine": 1,
+   "existing": 0,
+   "thick_pct": 100,
+   "rock_cover": 7,
+   "infest_cells": 1,
+   "bypass_dig": 6
+  },
+  {
+   "id": "BTT",
+   "name": "미끼 벽장(꺼진 포탑)",
+   "kind": "room",
+   "rect": [
+    188,
+    173,
+    188,
+    173
+   ],
+   "phase": 1,
+   "note": "전원 꺼진 미니 포탑 1기, 문 (188,172) 닫힘. 적의 전투 상태 판정(EnemiesAreNearby)은 문 너머·전원 무관으로 이 포탑을 센다 → 미로 입구부터 폰 충돌(1명씩). 회피 격자는 포탑과 사선이 닿는 칸에만 생기므로 닫힌 문 앞 1칸뿐 → 공병·돌파 우회 없음(raid_sim).",
+   "size": "1x1",
+   "cells": 1,
+   "mine": 1,
+   "existing": 0,
+   "thick_pct": 100,
+   "rock_cover": 9,
+   "infest_cells": 1,
+   "bypass_dig": 6
+  },
+  {
    "id": "MZT",
    "name": "미로: 진입 터널",
    "kind": "corridor",
@@ -101,7 +164,7 @@
    "mine": 2,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 10,
+   "rock_cover": 14,
    "infest_cells": 2,
    "bypass_dig": 9
   },
@@ -122,7 +185,7 @@
    "mine": 5,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 12,
+   "rock_cover": 13,
    "infest_cells": 5,
    "bypass_dig": 10
   },
@@ -332,7 +395,7 @@
    "mine": 28,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 22,
+   "rock_cover": 26,
    "infest_cells": 28,
    "bypass_dig": 10
   },
@@ -416,7 +479,7 @@
    "mine": 30,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 48,
+   "rock_cover": 52,
    "infest_cells": 30,
    "bypass_dig": 11
   },
@@ -437,7 +500,7 @@
    "mine": 14,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 30,
+   "rock_cover": 32,
    "infest_cells": 14,
    "bypass_dig": 11
   },
@@ -458,7 +521,7 @@
    "mine": 26,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 29,
+   "rock_cover": 33,
    "infest_cells": 26,
    "bypass_dig": 11
   },
@@ -773,7 +836,7 @@
    "mine": 20,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 44,
+   "rock_cover": 48,
    "infest_cells": 20,
    "bypass_dig": 12
   },
@@ -794,7 +857,7 @@
    "mine": 20,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 39,
+   "rock_cover": 43,
    "infest_cells": 20,
    "bypass_dig": 12
   },
@@ -815,7 +878,7 @@
    "mine": 20,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 34,
+   "rock_cover": 38,
    "infest_cells": 20,
    "bypass_dig": 12
   },
@@ -836,7 +899,7 @@
    "mine": 20,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 29,
+   "rock_cover": 33,
    "infest_cells": 20,
    "bypass_dig": 12
   },
@@ -857,7 +920,7 @@
    "mine": 20,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 24,
+   "rock_cover": 28,
    "infest_cells": 20,
    "bypass_dig": 12
   },
@@ -979,6 +1042,10 @@
   [
    156,
    187
+  ],
+  [
+   188,
+   172
   ],
   [
    155,
@@ -1238,6 +1305,12 @@
   ]
  ],
  "turrets": [],
+ "bait_turret": [
+  [
+   188,
+   173
+  ]
+ ],
  "sunlamps": [
   [
    144,
@@ -1590,7 +1663,10 @@
    "MZD",
    "MZE",
    "MZM",
-   "LR"
+   "LR",
+   "BTA",
+   "BTB",
+   "BTT"
   ],
   "checks": {
    "v8": "통과",
@@ -1611,9 +1687,9 @@
   }
  },
  "stats": {
-  "new_mined": 1518,
+  "new_mined": 1522,
   "mined_by_phase": {
-   "1": 324,
+   "1": 328,
    "2": 954,
    "3": 240
   },
