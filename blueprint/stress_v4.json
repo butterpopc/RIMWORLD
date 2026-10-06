@@ -1,63 +1,75 @@
 {
  "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2) | 집중 | 사격8": {
-  "win": 2,
+  "win": 4,
   "contact": 100,
-  "us_down": 5.94,
-  "us_dead": 2.84,
+  "us_down": 5.88,
+  "us_dead": 2.9,
   "p_down3": 99,
-  "time": 37,
+  "time": 41,
   "rocket_fired": 100,
-  "rocket_victims": 5.97
+  "rocket_victims": 5.97,
+  "blast_victims": 5.97,
+  "blast_enemy_hits": 0.82
  },
  "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2) | 집중 | 사격12": {
-  "win": 5,
-  "contact": 100,
-  "us_down": 5.79,
-  "us_dead": 2.93,
-  "p_down3": 96,
-  "time": 39,
+  "win": 10,
+  "contact": 99,
+  "us_down": 5.62,
+  "us_dead": 2.94,
+  "p_down3": 94,
+  "time": 41,
   "rocket_fired": 98,
-  "rocket_victims": 5.88
+  "rocket_victims": 5.88,
+  "blast_victims": 5.88,
+  "blast_enemy_hits": 0.63
  },
  "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2) | 집중+회피 | 사격8": {
-  "win": 0,
+  "win": 3,
   "contact": 100,
-  "us_down": 6.0,
+  "us_down": 5.92,
   "us_dead": 2.75,
   "p_down3": 100,
-  "time": 36,
+  "time": 41,
   "rocket_fired": 77,
-  "rocket_victims": 4.54
+  "rocket_victims": 4.54,
+  "blast_victims": 4.54,
+  "blast_enemy_hits": 2.23
  },
  "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2) | 집중+회피 | 사격12": {
-  "win": 6,
+  "win": 14,
   "contact": 99,
-  "us_down": 5.78,
-  "us_dead": 2.63,
-  "p_down3": 96,
-  "time": 40,
+  "us_down": 5.54,
+  "us_dead": 2.66,
+  "p_down3": 93,
+  "time": 48,
   "rocket_fired": 70,
-  "rocket_victims": 4.2
+  "rocket_victims": 4.2,
+  "blast_victims": 4.2,
+  "blast_enemy_hits": 1.76
  },
  "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2) | 집중+저보호막 | 사격8": {
-  "win": 6,
-  "contact": 100,
-  "us_down": 5.78,
-  "us_dead": 2.21,
-  "p_down3": 97,
-  "time": 51,
-  "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "win": 33,
+  "contact": 96,
+  "us_down": 4.53,
+  "us_dead": 1.7,
+  "p_down3": 74,
+  "time": 65,
+  "rocket_fired": 2,
+  "rocket_victims": 0.09,
+  "blast_victims": 0.09,
+  "blast_enemy_hits": 2.52
  },
  "T1 혼합(미니건·센티피드·둠스데이·네안데르탈3·단분자검·살종양2) | 집중+저보호막 | 사격12": {
-  "win": 34,
-  "contact": 98,
-  "us_down": 4.42,
-  "us_dead": 1.59,
-  "p_down3": 72,
-  "time": 56,
-  "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "win": 62,
+  "contact": 88,
+  "us_down": 3.12,
+  "us_dead": 1.14,
+  "p_down3": 50,
+  "time": 64,
+  "rocket_fired": 1,
+  "rocket_victims": 0.06,
+  "blast_victims": 0.06,
+  "blast_enemy_hits": 2.33
  },
  "T1a 둠스데이 단독 | 집중 | 사격8": {
   "win": 100,
@@ -67,7 +79,9 @@
   "p_down3": 34,
   "time": 29,
   "rocket_fired": 100,
-  "rocket_victims": 6.0
+  "rocket_victims": 6.0,
+  "blast_victims": 6.0,
+  "blast_enemy_hits": 0.0
  },
  "T1a 둠스데이 단독 | 집중 | 사격12": {
   "win": 100,
@@ -77,7 +91,9 @@
   "p_down3": 32,
   "time": 27,
   "rocket_fired": 98,
-  "rocket_victims": 5.85
+  "rocket_victims": 5.85,
+  "blast_victims": 5.85,
+  "blast_enemy_hits": 0.0
  },
  "T1a 둠스데이 단독 | 집중+회피 | 사격8": {
   "win": 100,
@@ -87,7 +103,9 @@
   "p_down3": 24,
   "time": 30,
   "rocket_fired": 80,
-  "rocket_victims": 4.83
+  "rocket_victims": 4.83,
+  "blast_victims": 4.83,
+  "blast_enemy_hits": 0.0
  },
  "T1a 둠스데이 단독 | 집중+회피 | 사격12": {
   "win": 100,
@@ -97,7 +115,9 @@
   "p_down3": 18,
   "time": 28,
   "rocket_fired": 52,
-  "rocket_victims": 3.15
+  "rocket_victims": 3.15,
+  "blast_victims": 3.15,
+  "blast_enemy_hits": 0.0
  },
  "T1a 둠스데이 단독 | 집중+저보호막 | 사격8": {
   "win": 100,
@@ -107,7 +127,9 @@
   "p_down3": 0,
   "time": 27,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T1a 둠스데이 단독 | 집중+저보호막 | 사격12": {
   "win": 100,
@@ -117,7 +139,9 @@
   "p_down3": 0,
   "time": 26,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T1b 센티피드 단독 | 집중 | 사격8": {
   "win": 100,
@@ -127,7 +151,9 @@
   "p_down3": 0,
   "time": 73,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T1b 센티피드 단독 | 집중 | 사격12": {
   "win": 100,
@@ -137,7 +163,9 @@
   "p_down3": 0,
   "time": 58,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T1c 네안데르탈 3 | 집중 | 사격8": {
   "win": 100,
@@ -147,7 +175,9 @@
   "p_down3": 0,
   "time": 30,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T1c 네안데르탈 3 | 집중 | 사격12": {
   "win": 100,
@@ -157,7 +187,9 @@
   "p_down3": 0,
   "time": 28,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T1d 단분자검+보호막 | 집중 | 사격8": {
   "win": 100,
@@ -167,7 +199,9 @@
   "p_down3": 0,
   "time": 26,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T1d 단분자검+보호막 | 집중 | 사격12": {
   "win": 100,
@@ -177,7 +211,9 @@
   "p_down3": 0,
   "time": 25,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2 혼합(저격20·임피드3·동급10·거대늘보3) | 집중 | 사격8": {
   "win": 0,
@@ -187,7 +223,9 @@
   "p_down3": 100,
   "time": 34,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2 혼합(저격20·임피드3·동급10·거대늘보3) | 집중 | 사격12": {
   "win": 0,
@@ -197,7 +235,9 @@
   "p_down3": 100,
   "time": 36,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2a 동급 돌격소총 10 | 집중 | 사격8": {
   "win": 44,
@@ -207,7 +247,9 @@
   "p_down3": 91,
   "time": 65,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2a 동급 돌격소총 10 | 집중 | 사격12": {
   "win": 90,
@@ -217,7 +259,33 @@
   "p_down3": 66,
   "time": 52,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T2a' 동급 돌격소총 10 (적끼리 충돌 가정) | 집중 | 사격8": {
+  "win": 78,
+  "contact": 0,
+  "us_down": 3.66,
+  "us_dead": 0.73,
+  "p_down3": 79,
+  "time": 80,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T2a' 동급 돌격소총 10 (적끼리 충돌 가정) | 집중 | 사격12": {
+  "win": 96,
+  "contact": 0,
+  "us_down": 2.5,
+  "us_dead": 0.46,
+  "p_down3": 38,
+  "time": 59,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2b 거대늘보 3 | 집중 | 사격8": {
   "win": 100,
@@ -227,7 +295,9 @@
   "p_down3": 0,
   "time": 28,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2b 거대늘보 3 | 집중 | 사격12": {
   "win": 100,
@@ -237,7 +307,9 @@
   "p_down3": 0,
   "time": 27,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2c 저격 20 | 집중 | 사격8": {
   "win": 100,
@@ -247,7 +319,9 @@
   "p_down3": 0,
   "time": 38,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T2c 저격 20 | 집중 | 사격12": {
   "win": 100,
@@ -257,7 +331,297 @@
   "p_down3": 0,
   "time": 31,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4a 삼연발 미사일 1 | 집중 | 사격8": {
+  "win": 36,
+  "contact": 10,
+  "us_down": 5.3,
+  "us_dead": 3.94,
+  "p_down3": 98,
+  "time": 32,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 10.54,
+  "blast_enemy_hits": 0.0
+ },
+ "T4a 삼연발 미사일 1 | 집중 | 사격12": {
+  "win": 46,
+  "contact": 2,
+  "us_down": 4.89,
+  "us_dead": 3.8,
+  "p_down3": 90,
+  "time": 30,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 9.52,
+  "blast_enemy_hits": 0.0
+ },
+ "T4a 삼연발 미사일 1 | 집중+회피 | 사격8": {
+  "win": 84,
+  "contact": 2,
+  "us_down": 3.46,
+  "us_dead": 2.73,
+  "p_down3": 65,
+  "time": 36,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 6.93,
+  "blast_enemy_hits": 0.14
+ },
+ "T4a 삼연발 미사일 1 | 집중+회피 | 사격12": {
+  "win": 94,
+  "contact": 0,
+  "us_down": 1.97,
+  "us_dead": 1.65,
+  "p_down3": 38,
+  "time": 30,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 4.01,
+  "blast_enemy_hits": 0.05
+ },
+ "T4a 삼연발 미사일 1 | 집중+저보호막 | 사격8": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.0,
+  "us_dead": 0.0,
+  "p_down3": 0,
+  "time": 28,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4a 삼연발 미사일 1 | 집중+저보호막 | 사격12": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.0,
+  "us_dead": 0.0,
+  "p_down3": 0,
+  "time": 27,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4b 수류탄병 3 | 집중 | 사격8": {
+  "win": 99,
+  "contact": 0,
+  "us_down": 0.4,
+  "us_dead": 0.35,
+  "p_down3": 7,
+  "time": 26,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 1.06,
+  "blast_enemy_hits": 0.0
+ },
+ "T4b 수류탄병 3 | 집중 | 사격12": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.07,
+  "us_dead": 0.07,
+  "p_down3": 1,
+  "time": 24,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.11,
+  "blast_enemy_hits": 0.0
+ },
+ "T4b 수류탄병 3 | 집중+회피 | 사격8": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.0,
+  "us_dead": 0.0,
+  "p_down3": 0,
+  "time": 27,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4b 수류탄병 3 | 집중+회피 | 사격12": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.0,
+  "us_dead": 0.0,
+  "p_down3": 0,
+  "time": 24,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4b 수류탄병 3 | 집중+저보호막 | 사격8": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.0,
+  "us_dead": 0.0,
+  "p_down3": 0,
+  "time": 26,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.04
+ },
+ "T4b 수류탄병 3 | 집중+저보호막 | 사격12": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.0,
+  "us_dead": 0.0,
+  "p_down3": 0,
+  "time": 24,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.01
+ },
+ "T4c 수류탄병 3 + 동급 돌격소총 5 | 집중 | 사격8": {
+  "win": 76,
+  "contact": 0,
+  "us_down": 2.98,
+  "us_dead": 1.4,
+  "p_down3": 44,
+  "time": 46,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 2.52,
+  "blast_enemy_hits": 0.0
+ },
+ "T4c 수류탄병 3 + 동급 돌격소총 5 | 집중 | 사격12": {
+  "win": 96,
+  "contact": 0,
+  "us_down": 1.34,
+  "us_dead": 0.54,
+  "p_down3": 14,
+  "time": 37,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.92,
+  "blast_enemy_hits": 0.0
+ },
+ "T4c 수류탄병 3 + 동급 돌격소총 5 | 집중+회피 | 사격8": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 1.53,
+  "us_dead": 0.3,
+  "p_down3": 3,
+  "time": 45,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4c 수류탄병 3 + 동급 돌격소총 5 | 집중+회피 | 사격12": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.88,
+  "us_dead": 0.18,
+  "p_down3": 0,
+  "time": 36,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4c 수류탄병 3 + 동급 돌격소총 5 | 집중+저보호막 | 사격8": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.89,
+  "us_dead": 0.19,
+  "p_down3": 1,
+  "time": 42,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.01,
+  "blast_enemy_hits": 0.07
+ },
+ "T4c 수류탄병 3 + 동급 돌격소총 5 | 집중+저보호막 | 사격12": {
+  "win": 100,
+  "contact": 0,
+  "us_down": 0.47,
+  "us_dead": 0.12,
+  "p_down3": 0,
+  "time": 35,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
+ },
+ "T4d 삼연발 1 + 수류탄 2 + 동급 5 | 집중 | 사격8": {
+  "win": 15,
+  "contact": 2,
+  "us_down": 5.39,
+  "us_dead": 3.38,
+  "p_down3": 90,
+  "time": 35,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 8.28,
+  "blast_enemy_hits": 0.01
+ },
+ "T4d 삼연발 1 + 수류탄 2 + 동급 5 | 집중 | 사격12": {
+  "win": 48,
+  "contact": 1,
+  "us_down": 3.98,
+  "us_dead": 2.53,
+  "p_down3": 66,
+  "time": 35,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 5.79,
+  "blast_enemy_hits": 0.0
+ },
+ "T4d 삼연발 1 + 수류탄 2 + 동급 5 | 집중+회피 | 사격8": {
+  "win": 63,
+  "contact": 10,
+  "us_down": 3.56,
+  "us_dead": 1.66,
+  "p_down3": 57,
+  "time": 53,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 3.19,
+  "blast_enemy_hits": 0.04
+ },
+ "T4d 삼연발 1 + 수류탄 2 + 동급 5 | 집중+회피 | 사격12": {
+  "win": 88,
+  "contact": 1,
+  "us_down": 1.71,
+  "us_dead": 0.81,
+  "p_down3": 20,
+  "time": 42,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 1.65,
+  "blast_enemy_hits": 0.01
+ },
+ "T4d 삼연발 1 + 수류탄 2 + 동급 5 | 집중+저보호막 | 사격8": {
+  "win": 80,
+  "contact": 0,
+  "us_down": 2.02,
+  "us_dead": 0.97,
+  "p_down3": 28,
+  "time": 44,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 2.12,
+  "blast_enemy_hits": 0.72
+ },
+ "T4d 삼연발 1 + 수류탄 2 + 동급 5 | 집중+저보호막 | 사격12": {
+  "win": 91,
+  "contact": 0,
+  "us_down": 1.0,
+  "us_dead": 0.59,
+  "p_down3": 14,
+  "time": 36,
+  "rocket_fired": 0,
+  "rocket_victims": 0.0,
+  "blast_victims": 1.3,
+  "blast_enemy_hits": 0.26
  },
  "T3 시야도둑20·휘청30 (사로 어두움) | 집중 | 사격8": {
   "win": 0,
@@ -267,7 +631,9 @@
   "p_down3": 100,
   "time": 38,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3 시야도둑20·휘청30 (사로 어두움) | 집중 | 사격12": {
   "win": 0,
@@ -277,7 +643,9 @@
   "p_down3": 100,
   "time": 38,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3L 시야도둑20·휘청30 (사로 조명) | 집중 | 사격8": {
   "win": 0,
@@ -287,7 +655,9 @@
   "p_down3": 100,
   "time": 38,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3L 시야도둑20·휘청30 (사로 조명) | 집중 | 사격12": {
   "win": 0,
@@ -297,7 +667,9 @@
   "p_down3": 100,
   "time": 38,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3a 시야도둑 20 (어두움) | 집중 | 사격8": {
   "win": 13,
@@ -307,7 +679,9 @@
   "p_down3": 98,
   "time": 54,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3a 시야도둑 20 (어두움) | 집중 | 사격12": {
   "win": 20,
@@ -317,7 +691,9 @@
   "p_down3": 97,
   "time": 56,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3b 시야도둑 20 (조명) | 집중 | 사격8": {
   "win": 22,
@@ -327,7 +703,9 @@
   "p_down3": 90,
   "time": 55,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3b 시야도둑 20 (조명) | 집중 | 사격12": {
   "win": 32,
@@ -337,7 +715,9 @@
   "p_down3": 90,
   "time": 57,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3c 휘청이는 자 30 | 집중 | 사격8": {
   "win": 0,
@@ -347,7 +727,9 @@
   "p_down3": 100,
   "time": 44,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  },
  "T3c 휘청이는 자 30 | 집중 | 사격12": {
   "win": 0,
@@ -357,6 +739,8 @@
   "p_down3": 100,
   "time": 44,
   "rocket_fired": 0,
-  "rocket_victims": 0.0
+  "rocket_victims": 0.0,
+  "blast_victims": 0.0,
+  "blast_enemy_hits": 0.0
  }
 }

@@ -15,6 +15,9 @@
   투명   CompSightstealer: 우리 폰의 시야 반경 14×lerp(0.33,1,밝기) 안 + 사선이면 드러남, 맞으면 드러남
   도주   인간 습격대는 40~70%가 쓰러지면 도주. 메카·동물(광분)·엔티티·휘청이는 자는 끝까지
   폭발   Explosion: 폭심에서 사선이 닿는 칸만 피해(감쇠 여부는 무기 XML → 최악으로 감쇠 없음 가정)
+  보호막 CompProjectileInterceptor: 원 밖에서 쏜 적대 투사체만 막음, 폭발물은 경계에서 터짐(저보호막 반경 4.9, 30초, 250HP)
+  수류탄 착지 후 100틱 뒤 폭발(회피 교리: 반응 60틱 + 2칸 이동 26틱)
+  충돌   collide=True면 사격 중(서 있는) 적이 뒤따르는 적을 막는다 — 실제로는 둘 다 '충돌 작업'일 때만(JobGiver_AIGotoNearestHostile 등)
 수치 출처는 아래 표의 주석. [가정]은 확인하지 못한 값이라 결과를 좌우하면 그렇게 보고한다.
 단순화: 빗나간 탄의 오발 피해·출혈·화재 확산·근접 회피 기술은 넣지 않았다. 사대 접촉 후 근접전은 단순 DPS 교환.
 """
@@ -120,7 +123,9 @@ WEAPONS = {
     "minigun": dict(rng=30.9, warm=150, burst=25, gap=5, cool=90, dmg=10, ap=0.15, acc=acc_curve(.20, .25, .25, .18)),   # 위키 Minigun(검색 요약, 확인 필요)
     "sniper":  dict(rng=44.9, warm=210, burst=1, gap=0, cool=90, dmg=25, ap=0.38, acc=acc_curve(.50, .70, .88, .90)),    # 위키 Sniper rifle
     "hcb":     dict(rng=27.0, warm=75, burst=24, gap=5, cool=444, dmg=15, ap=0.22, acc=acc_curve(.22, .22, .22, .22)),   # 위키 Heavy charge blaster(평균 22%), 연사간격 [가정]
-    "doomsday": dict(rng=36.0, warm=270, burst=1, gap=0, cool=270, dmg=50, ap=0.0, acc=None, blast=7.8, oneuse=True),    # 위키 Doomsday: 반경 7.8, 폭탄 50
+    "doomsday": dict(rng=36.0, warm=270, burst=1, gap=0, cool=270, dmg=50, ap=0.0, acc=None, blast=7.8, miss=0.0, fuse=0, oneuse=True),   # 위키 Doomsday: 반경 7.8, 폭탄 50. 빗나감 반경 [가정 0]
+    "triple":  dict(rng=36.0, warm=270, burst=3, gap=20, cool=270, dmg=50, ap=0.10, acc=None, blast=3.9, miss=2.9, fuse=0, oneuse=True),  # 위키 Triple rocket launcher
+    "frag":    dict(rng=12.9, warm=90, burst=1, gap=0, cool=160, dmg=50, ap=0.10, acc=None, blast=1.9, miss=1.9, fuse=100),              # 위키 Frag grenades(착지 후 100틱 뒤 폭발). 관통 [가정]
 }
 # 사격 정확도/칸 (위키 Shooting Accuracy 표): 사격 6 0.95, 9 0.965, 10≈0.968, 12 0.975, 14 0.98, 20 0.995(검색 요약)
 SKILL_ACC = {6: 0.95, 8: 0.96, 10: 0.968, 12: 0.975, 14: 0.98, 20: 0.995}
@@ -135,6 +140,8 @@ ETYPES = {
     "monosword":   dict(spd=4.6, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.45, wpn=None, skill=8, mdps=10.0, mhit=25.0, map=0.83, kind="human", shield=1.1),  # 위키 단분자검 평균 DPS 12·관통 83%, 보호막 1.1/0.033
     "fleshbeast":  dict(spd=4.0, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.0, wpn=None, skill=0, mdps=5.0, map=0.1, kind="entity"),   # '살종양' 정체 미확인 → 중형 근접 살덩이 짐승 [가정]
     "centipede":   dict(spd=1.9, size=1.8, hs=4.32, pain=None, inc=1.0, arm=0.72, wpn="hcb", skill=8, mdps=6.0, map=0.2, kind="mech"),  # 위키: 예리 72%, 1.9 c/s, 체력 432%. 몸크기 [가정]
+    "triple_rkt":  dict(spd=4.6, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.30, wpn="triple", skill=8, mdps=4.0, map=0.1, kind="human"),
+    "grenadier":   dict(spd=4.6, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.30, wpn="frag", skill=8, mdps=4.0, map=0.1, kind="human"),
     "sniper20":    dict(spd=4.6, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.30, wpn="sniper", skill=20, mdps=4.0, map=0.1, kind="human"),
     "impid":       dict(spd=5.5, size=1.0, hs=1.0, pain=1.0, inc=1.0, arm=0.05, wpn=None, skill=6, mdps=3.0, map=0.1, kind="human", spew=7.9),  # 위키: 화염 토사 7.9칸(1회). 속도 [가정]
     "megasloth":   dict(spd=4.8, size=4.0, hs=3.6, pain=1.0, inc=1.0, arm=0.0, wpn=None, skill=0, mdps=6.1, mhit=21.0, map=0.2, kind="animal"),  # 위키: 4.8 c/s, 체력 360%, 몸크기 4, DPS 6.1
@@ -179,6 +186,27 @@ VIS = {}          # (적칸, 아군칸) → (적이 쏠 수 있나, 아군이 �
 for e in PATH:
     for s in ALL_SH + POCKETS:
         VIS[(e, s)] = (can_hit(e, s), can_hit(s, e), math.dist(e, s), cover(e, s), cover(s, e))
+
+SHIELD_C, SHIELD_R = (158.5, 179.5), 4.9   # 저보호막 중심: 사대 동쪽 5칸(폭심이 사대에서 7.8칸 밖이 되도록)
+
+def shield_cut(src, dst):
+    """적 투사체 src→dst가 보호막 원과 만나는 첫 점(칸). 발사 지점이 원 안이면 막지 않음(CompProjectileInterceptor)."""
+    sx, sz = src[0] + 0.5, src[1] + 0.5; tx, tz = dst[0] + 0.5, dst[1] + 0.5
+    cx, cz = SHIELD_C
+    if (sx - cx) ** 2 + (sz - cz) ** 2 <= SHIELD_R ** 2: return None
+    dx, dz = tx - sx, tz - sz
+    a = dx * dx + dz * dz; b = 2 * (dx * (sx - cx) + dz * (sz - cz)); c = (sx - cx) ** 2 + (sz - cz) ** 2 - SHIELD_R ** 2
+    disc = b * b - 4 * a * c
+    if a == 0 or disc < 0: return None
+    t = (-b - math.sqrt(disc)) / (2 * a)
+    if not 0 <= t <= 1: return None
+    return (int(sx + dx * t), int(sz + dz * t))
+
+def land_cell(tgt, miss):
+    if miss <= 0: return tgt
+    cand = [(tgt[0] + dx, tgt[1] + dz) for dx in range(-3, 4) for dz in range(-3, 4)
+            if dx * dx + dz * dz <= miss * miss and see(tgt[0] + dx, tgt[1] + dz)]
+    return random.choice(cand)
 
 def hitchance(acc_per_cell, w, d, size, cov):
     a = acc_per_cell ** d * (w["acc"](d) if w["acc"] else 1.0) * max(0.5, min(2.0, size)) * (1 - cov)
@@ -247,7 +275,9 @@ def run(scn, rng_seed, doctrine):
             en.append(Unit(kind, "enemy", t0=int(random.uniform(0, scn.get("spread", 8)) * 60)))
     glow = scn.get("glow", 0.0)
     flee_at = random.uniform(0.4, 0.7)
-    shield_until = -1; shield_hp = 0
+    shield_until = -1; shield_hp = 0; packs = doctrine.get("packs", 2) if doctrine.get("shield") else 0
+    booms = []                     # (터질 틱, 폭심, 무기)
+    collide = scn.get("collide", False)
     T, TMAX = 0, 60 * 240
     log = collections.Counter()
     standing = {}
@@ -258,13 +288,15 @@ def run(scn, rng_seed, doctrine):
             if e.idx < 0: e.idx = 0; e.nextmove = T
             if e.contact or e.standing: continue
             # 원거리: 지금 칸에서 아군을 쏠 수 있고 사거리 안이면 멈춤(서 있는 칸 1명)
-            if e.wpn and not (e.p.get("wpn") == "doomsday" and e.used):
+            if e.wpn:
                 c = PATH[e.idx]
                 if c not in standing and any(VIS[(c, u.cell)][0] and VIS[(c, u.cell)][2] <= e.wpn["rng"] for u in us if u.active and (c, u.cell) in VIS):
                     e.standing = True; standing[c] = e; continue
             if T >= e.nextmove:
                 if e.idx >= len(PATH) - 1:
                     e.contact = True; log["contact"] += 1; continue
+                if collide and PATH[e.idx + 1] in standing:
+                    e.nextmove = T + DT; log["blocked_ticks"] += DT; continue   # 앞 칸에 사격 중인 아군이 서 있으면 통과 못 함(둘 다 충돌 작업일 때)
                 e.idx += 1
                 c0, c1 = PATH[e.idx - 1], PATH[e.idx]
                 step = 1.41 if (c0[0] != c1[0] and c0[1] != c1[1]) else 1.0
@@ -296,7 +328,7 @@ def run(scn, rng_seed, doctrine):
             if not e.standing: continue
             w = e.wpn
             if e.stance is None:
-                cand = [u for u in us if u.active and VIS[(c, u.cell)][0] and VIS[(c, u.cell)][2] <= w["rng"]]
+                cand = [u for u in us if u.active and T >= getattr(u, "out_until", 0) and VIS[(c, u.cell)][0] and VIS[(c, u.cell)][2] <= w["rng"]]
                 if not cand:
                     e.standing = False; standing.pop(c, None); continue
                 # 적 AI 점수: 60-거리-엄폐×10 (+폭발물은 반경 안 아군 수 ×10.8)
@@ -314,17 +346,29 @@ def run(scn, rng_seed, doctrine):
             if e.stance == "fire" and T >= e.stance_t:
                 d = VIS[(c, tgt.cell)][2]
                 if w.get("blast"):
-                    e.used = True; e.standing = False; standing.pop(c, None); e.wpn = None; e.stance = None
-                    center = tgt.cell
-                    if shield_until > T:
-                        log["rocket_shielded"] += 1
-                    else:
-                        log["rocket_fired"] += 1
+                    center = land_cell(tgt.cell, w["miss"])
+                    cut = shield_cut(c, center) if shield_until > T and shield_hp > 0 else None
+                    if cut:
+                        center = cut; shield_hp -= w["dmg"]; log["blast_shielded"] += 1
+                    log["blast_fired"] += 1
+                    if w is WEAPONS["doomsday"] and not cut: log["rocket_fired"] += 1
+                    booms.append((T + w["fuse"], center, w))
+                    if w["fuse"] and doctrine.get("gdodge"):
+                        # 수류탄 착지 후 100틱: 반응 60틱 + 서쪽 2칸(26틱) → 반경 1.9 밖으로 피함
                         for u in us:
-                            if u.active and math.dist(u.cell, center) <= w["blast"] and (u.cell == center or los(center, u.cell)):
-                                u.take(w["dmg"], 0.0, ranged=False, explosive=True); log["rocket_victims"] += 1
+                            if u.active and math.dist(u.cell, center) <= w["blast"] + 0.5 and 60 + 26 <= w["fuse"]:
+                                u.out_until = T + w["fuse"] + 30; log["gdodge"] += 1
+                    e.shots += 1
+                    if e.shots >= w["burst"]:
+                        if w.get("oneuse"):
+                            e.wpn = None; e.standing = False; standing.pop(c, None); e.stance = None
+                        else:
+                            e.stance = "cool"; e.stance_t = T + w["cool"]
+                    else:
+                        e.stance_t = T + w["gap"]
                     continue
-                if shield_until > T and shield_hp > 0:
+                cut = shield_cut(c, tgt.cell) if shield_until > T and shield_hp > 0 else None
+                if cut:
                     shield_hp -= w["dmg"]
                 else:
                     p = hitchance(SKILL_ACC[e.p["skill"]], w, d, 1.0, VIS[(c, tgt.cell)][4])
@@ -337,11 +381,26 @@ def run(scn, rng_seed, doctrine):
                     e.stance_t = T + w["gap"]
             if e.stance == "cool" and T >= e.stance_t:
                 e.stance = None
-        # --- 교리: 둠스데이 조준 대응 ---
+        # --- 폭발 ---
+        for b in [b for b in booms if b[0] <= T]:
+            booms.remove(b)
+            _, center, w = b
+            for u in us:
+                if u.active and T >= getattr(u, "out_until", 0) and math.dist(u.cell, center) <= w["blast"] and (u.cell == center or los(center, u.cell)):
+                    u.take(w["dmg"], w["ap"], ranged=False, explosive=True); log["blast_victims"] += 1
+                    if w is WEAPONS["doomsday"]: log["rocket_victims"] += 1
+            for e2 in en:
+                if e2.active and e2.idx >= 0:
+                    c2 = PATH[e2.idx]
+                    if math.dist(c2, center) <= w["blast"] and (c2 == center or los(center, c2)):
+                        e2.take(w["dmg"], w["ap"], ranged=False, explosive=True); log["blast_enemy_hits"] += 1
+        # --- 교리: 폭발물 조준 대응 ---
         for e in en:
             if e.active and e.stance == "warm" and e.wpn and e.wpn.get("blast"):
-                if doctrine.get("shield") and not log["shield_used"]:
-                    log["shield_used"] += 1; shield_until = T + 1800; shield_hp = 250
+                if packs > 0 and (shield_until <= T or shield_hp <= 0):
+                    packs -= 1; log["shield_used"] += 1; shield_until = T + 1800; shield_hp = 250
+                if not e.wpn.get("oneuse"):
+                    continue
                 tgt = e.target
                 free = [p_ for p_ in POCKETS if all(v.cell != p_ for v in us)]
                 if doctrine.get("dodge") and tgt.active and tgt.cell not in POCKETS and free:
@@ -353,9 +412,9 @@ def run(scn, rng_seed, doctrine):
             if u.active and getattr(u, "dodge_until", None) and T >= u.dodge_until and u.cell in POCKETS:
                 u.cell = u.home; u.dodge_until = None
         # --- 아군 사격 ---
-        prio = {"rocketeer": 0, "sniper20": 1, "minigunner": 1, "centipede": 2, "raider_ar": 3}
+        prio = {"rocketeer": 0, "triple_rkt": 0, "grenadier": 1, "sniper20": 1, "minigunner": 1, "centipede": 2, "raider_ar": 3}
         for u in us:
-            if not u.active or u.cell in POCKETS: continue
+            if not u.active or u.cell in POCKETS or T < getattr(u, "out_until", 0): continue
             if u.stance is None:
                 cand = []
                 for e in en:
@@ -403,15 +462,21 @@ SCN = {
     "T1d 단분자검+보호막": dict(enemies=[("monosword", 1)]),
     "T2 혼합(저격20·임피드3·동급10·거대늘보3)": dict(enemies=[("sniper20", 1), ("impid", 3), ("raider_ar", 10), ("megasloth", 3)]),
     "T2a 동급 돌격소총 10": dict(enemies=[("raider_ar", 10)]),
+    "T2a' 동급 돌격소총 10 (적끼리 충돌 가정)": dict(enemies=[("raider_ar", 10)], collide=True),
     "T2b 거대늘보 3": dict(enemies=[("megasloth", 3)]),
     "T2c 저격 20": dict(enemies=[("sniper20", 1)]),
+    "T4a 삼연발 미사일 1": dict(enemies=[("triple_rkt", 1)]),
+    "T4b 수류탄병 3": dict(enemies=[("grenadier", 3)]),
+    "T4c 수류탄병 3 + 동급 돌격소총 5": dict(enemies=[("grenadier", 3), ("raider_ar", 5)]),
+    "T4d 삼연발 1 + 수류탄 2 + 동급 5": dict(enemies=[("triple_rkt", 1), ("grenadier", 2), ("raider_ar", 5)]),
     "T3 시야도둑20·휘청30 (사로 어두움)": dict(enemies=[("sightstealer", 20), ("shambler", 30)], spread=20, glow=0.0),
     "T3L 시야도둑20·휘청30 (사로 조명)": dict(enemies=[("sightstealer", 20), ("shambler", 30)], spread=20, glow=1.0),
     "T3a 시야도둑 20 (어두움)": dict(enemies=[("sightstealer", 20)], spread=15, glow=0.0),
     "T3b 시야도둑 20 (조명)": dict(enemies=[("sightstealer", 20)], spread=15, glow=1.0),
     "T3c 휘청이는 자 30": dict(enemies=[("shambler", 30)], spread=20),
 }
-DOCTRINES = {"집중": dict(focus=True), "집중+회피": dict(focus=True, dodge=True), "집중+저보호막": dict(focus=True, shield=True)}
+DOCTRINES = {"집중": dict(focus=True), "집중+회피": dict(focus=True, dodge=True, gdodge=True), "집중+저보호막": dict(focus=True, shield=True)}
+BLAST = {"rocketeer", "triple_rkt", "grenadier"}
 
 def summarize(rs):
     n = len(rs)
@@ -419,13 +484,15 @@ def summarize(rs):
                 us_down=round(sum(r["us_down"] for r in rs) / n, 2), us_dead=round(sum(r["us_dead"] for r in rs) / n, 2),
                 p_down3=round(100 * sum(r["us_down"] >= 3 for r in rs) / n), time=round(sum(r["time"] for r in rs) / n),
                 rocket_fired=round(100 * sum(r["log"].get("rocket_fired", 0) > 0 for r in rs) / n),
-                rocket_victims=round(sum(r["log"].get("rocket_victims", 0) for r in rs) / n, 2))
+                rocket_victims=round(sum(r["log"].get("rocket_victims", 0) for r in rs) / n, 2),
+                blast_victims=round(sum(r["log"].get("blast_victims", 0) for r in rs) / n, 2),
+                blast_enemy_hits=round(sum(r["log"].get("blast_enemy_hits", 0) for r in rs) / n, 2))
 
 if __name__ == "__main__":
     print(f"적 경로 {len(PATH)}칸 (미로 입구 {start} → 사대), 아군 사수 {len(SHOOT5)}+1, 반복 {RUNS}회")
     res = {}
     for name, scn in SCN.items():
-        docs = DOCTRINES if any(k == "rocketeer" for k, _ in scn["enemies"]) else {"집중": DOCTRINES["집중"]}
+        docs = DOCTRINES if any(k in BLAST for k, _ in scn["enemies"]) else {"집중": DOCTRINES["집중"]}
         for dn, doc in docs.items():
             for skill in (8, 12):
                 s = dict(scn, our_skill=skill)
@@ -434,6 +501,6 @@ if __name__ == "__main__":
                 res[f"{name} | {dn} | 사격{skill}"] = m
                 print(f"{name} | {dn} | 사격{skill}: 전멸시킴 {m['win']}% · 사대 근접 접촉 {m['contact']}% · "
                       f"아군 쓰러짐 {m['us_down']}명(사망 {m['us_dead']}) · 3명↑ 쓰러짐 {m['p_down3']}% · {m['time']}초"
-                      + (f" · 로켓 발사 {m['rocket_fired']}% (피해자 {m['rocket_victims']}명)" if m["rocket_fired"] or "둠스데이" in name or "혼합" in name else ""))
+                      + (f" · 폭발 피격 아군 {m['blast_victims']}회 / 적 {m['blast_enemy_hits']}회" if any(k in BLAST for k, _ in scn["enemies"]) else ""))
     if out:
         json.dump(res, open(out, "w"), ensure_ascii=False, indent=1)
