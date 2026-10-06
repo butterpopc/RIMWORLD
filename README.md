@@ -8,6 +8,8 @@
 | `docs/02_design.md` | 설계 v3: 킬존 9층, 전투 교리, 배치, 검증, 단계별 순서 |
 | `docs/03_enemy_ai.md` | 적 AI 조사(1.6 디컴파일 소스 요약) + 공병·돌파 경로 모의 실험 |
 | `docs/04_stress_test.md` | 킬존 v4 스트레스 테스트: 적 조합별 몬테카를로 결과, 원인, 개선안 |
+| `docs/05_x10_plan.md` | ×10 습격(걸어오는 습격·드롭포드) 킬존 v5 설계안 — 미검증, 다음 작업 목록 포함 |
+| `CLAUDE.md` | 프로젝트 기억: 대화 규칙, 사용자 결정, 확인된 게임 사실, 현재 상태 |
 | `blueprint/layout_v3.json` | 모든 공간·문·되메움·킬존 요소·야외 시설 좌표 + 검증 수치 |
 | `blueprint/validation_report.txt` | 검증 스크립트 출력 원문 (12개 검사) |
 | `blueprint/raid_sim_report.txt`, `raid_sim_v3.json` | 공병·돌파 경로 모의 실험 결과 |
