@@ -92,38 +92,80 @@
     186,
     176,
     186,
-    178
+    176
    ],
    "phase": 1,
-   "note": "북쪽 3칸.",
+   "note": "북쪽 1칸.",
+   "size": "1x1",
+   "cells": 1,
+   "mine": 1,
+   "existing": 0,
+   "thick_pct": 100,
+   "rock_cover": 10,
+   "infest_cells": 1,
+   "bypass_dig": 9
+  },
+  {
+   "id": "MZC",
+   "name": "미로: 3구간",
+   "kind": "corridor",
+   "rect": [
+    173,
+    177,
+    186,
+    177
+   ],
+   "phase": 1,
+   "note": "서쪽 14칸. 사로 동벽(x=171) 뒤에 숨어 있어 이 통로에서는 사대가 보이지 않는다(통로 안 저격 차단).",
+   "size": "14x1",
+   "cells": 14,
+   "mine": 14,
+   "existing": 0,
+   "thick_pct": 100,
+   "rock_cover": 5,
+   "infest_cells": 14,
+   "bypass_dig": 6
+  },
+  {
+   "id": "MZD",
+   "name": "미로: 꺾임 → 입구",
+   "kind": "corridor",
+   "rect": [
+    172,
+    177,
+    172,
+    179
+   ],
+   "phase": 1,
+   "note": "북쪽으로 3칸 꺾어 올라와 입구 (171,179)에 닿는다. 사대가 보이는 미로 칸은 입구 바로 뒤 몇 칸뿐이고, 그 칸은 사대 전원이 되쏠 수 있다.",
    "size": "1x3",
    "cells": 3,
    "mine": 3,
    "existing": 0,
    "thick_pct": 100,
-   "rock_cover": 10,
+   "rock_cover": 5,
    "infest_cells": 3,
-   "bypass_dig": 9
+   "bypass_dig": 6
   },
   {
-   "id": "MZC",
-   "name": "미로: 3구간 → 입구",
+   "id": "MZE",
+   "name": "사로 입구",
    "kind": "corridor",
    "rect": [
     171,
     179,
-    186,
+    171,
     179
    ],
    "phase": 1,
-   "note": "서쪽 16칸, 끝 (171,179)이 사로 입구. 장애물 없음 → 한 줄로 사로에 진입.",
-   "size": "16x1",
-   "cells": 16,
-   "mine": 16,
+   "note": "사로 동벽의 폭 1 입구. 문 없음.",
+   "size": "1x1",
+   "cells": 1,
+   "mine": 1,
    "existing": 0,
    "thick_pct": 100,
    "rock_cover": 7,
-   "infest_cells": 16,
+   "infest_cells": 1,
    "bypass_dig": 8
   },
   {
@@ -137,7 +179,7 @@
     182
    ],
    "phase": 1,
-   "note": "20×7. 입구(171,179)에서 사대 앞 모래주머니(x=154)까지 엄폐물 없는 16칸. 사대는 서쪽 3열(x151~153). 냉동고 냉각기가 사대 뒤 벽에서 배기.",
+   "note": "20×7. 입구(171,179)로 들어온 적은 사대 앞 모래주머니(x=154)까지 엄폐물 없는 16칸을 건넌다. 사대는 서쪽 3열(x151~153). 냉동고 냉각기가 사대 뒤 벽에서 배기.",
    "size": "20x7",
    "cells": 140,
    "mine": 140,
@@ -1488,6 +1530,8 @@
    "MZB",
    "MZ2",
    "MZC",
+   "MZD",
+   "MZE",
    "LR"
   ],
   "checks": {
@@ -1497,7 +1541,15 @@
    "entrance_to_sandbag_cells": 16,
    "maze_cells": 43,
    "maze_barricades": 8,
-   "firing_line_cells": 21
+   "firing_line_cells": 21,
+   "v12_min_rock_to_interior": 5,
+   "v12_thinnest_at": [
+    "M1E",
+    [
+     161,
+     188
+    ]
+   ]
   }
  },
  "stats": {

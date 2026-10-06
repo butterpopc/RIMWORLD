@@ -1,5 +1,6 @@
 == 검증 ==
-문제: 없음
+문제: 
+  - V12 킬존에서 내부 FRZ (149, 176)까지 암반 1칸뿐(4칸 미만)
 신규 채굴 1479칸 (단계별 {1: 285, 2: 954, 3: 240}), 되메움 65칸, 광맥 {'MineableComponentsIndustrial': 8, 'MineableSteel': 36, 'MineableGold': 2}
 == 동선(걸음) ==
   가까운 침실→대회당: 31
@@ -18,8 +19,10 @@
   MZA {'name': '미로: 1구간', 'size': '9x1', 'cells': 9, 'mine': 9, 'existing': 0, 'thick_pct': 100, 'rock_cover': 3, 'infest_cells': 9, 'bypass_dig': 4}
   MZ1 {'name': '미로: 굽이 1', 'size': '1x1', 'cells': 1, 'mine': 1, 'existing': 0, 'thick_pct': 100, 'rock_cover': 5, 'infest_cells': 1, 'bypass_dig': 5}
   MZB {'name': '미로: 2구간', 'size': '9x1', 'cells': 9, 'mine': 9, 'existing': 0, 'thick_pct': 100, 'rock_cover': 6, 'infest_cells': 9, 'bypass_dig': 6}
-  MZ2 {'name': '미로: 굽이 2', 'size': '1x3', 'cells': 3, 'mine': 3, 'existing': 0, 'thick_pct': 100, 'rock_cover': 10, 'infest_cells': 3, 'bypass_dig': 9}
-  MZC {'name': '미로: 3구간 → 입구', 'size': '16x1', 'cells': 16, 'mine': 16, 'existing': 0, 'thick_pct': 100, 'rock_cover': 7, 'infest_cells': 16, 'bypass_dig': 8}
+  MZ2 {'name': '미로: 굽이 2', 'size': '1x1', 'cells': 1, 'mine': 1, 'existing': 0, 'thick_pct': 100, 'rock_cover': 10, 'infest_cells': 1, 'bypass_dig': 9}
+  MZC {'name': '미로: 3구간', 'size': '14x1', 'cells': 14, 'mine': 14, 'existing': 0, 'thick_pct': 100, 'rock_cover': 5, 'infest_cells': 14, 'bypass_dig': 6}
+  MZD {'name': '미로: 꺾임 → 입구', 'size': '1x3', 'cells': 3, 'mine': 3, 'existing': 0, 'thick_pct': 100, 'rock_cover': 5, 'infest_cells': 3, 'bypass_dig': 6}
+  MZE {'name': '사로 입구', 'size': '1x1', 'cells': 1, 'mine': 1, 'existing': 0, 'thick_pct': 100, 'rock_cover': 7, 'infest_cells': 1, 'bypass_dig': 8}
   LR {'name': '사로·개활지 + 사대', 'size': '20x7', 'cells': 140, 'mine': 140, 'existing': 0, 'thick_pct': 100, 'rock_cover': 5, 'infest_cells': 140, 'bypass_dig': 6}
   V {'name': '방폭 전실(U자)', 'size': '1x2', 'cells': 2, 'mine': 2, 'existing': 0, 'thick_pct': 100, 'rock_cover': 19, 'infest_cells': 2, 'bypass_dig': 11}
   WR {'name': '전투 대기실·무기고', 'size': '8x3', 'cells': 24, 'mine': 24, 'existing': 0, 'thick_pct': 100, 'rock_cover': 23, 'infest_cells': 24, 'bypass_dig': 11}

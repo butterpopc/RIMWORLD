@@ -26,14 +26,26 @@
   },
   "MZ2": {
    "name": "미로: 굽이 2",
-   "cells": 3,
-   "exposed_human": 3,
-   "exposed_mech": 2
+   "cells": 1,
+   "exposed_human": 1,
+   "exposed_mech": 1
   },
   "MZC": {
-   "name": "미로: 3구간 → 입구",
-   "cells": 16,
-   "exposed_human": 5,
+   "name": "미로: 3구간",
+   "cells": 14,
+   "exposed_human": 8,
+   "exposed_mech": 1
+  },
+  "MZD": {
+   "name": "미로: 꺾임 → 입구",
+   "cells": 3,
+   "exposed_human": 0,
+   "exposed_mech": 0
+  },
+  "MZE": {
+   "name": "사로 입구",
+   "cells": 1,
+   "exposed_human": 0,
    "exposed_mech": 0
   },
   "LR": {

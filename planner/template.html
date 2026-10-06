@@ -161,7 +161,7 @@ footer a{color:var(--muted)}
     <tbody>
       <tr><td>9</td><td>전원 꺼진 포탑</td><td>미끼 가구 2개 (183,166)·(188,165)</td><td><span class="fix">수정.</span> 꺼진 포탑도 회피 격자를 만들어 똑똑한 공병·돌파가 0~38%만 킬존으로 옵니다. 반경 5칸 건물을 부수는 행동은 가구에도 일어납니다. 가구가 부수기 대상인지는 확인 필요</td></tr>
       <tr><td>8</td><td>장애물 깔린 구불구불한 미로</td><td>외길 43칸, 바리케이드 8개</td><td>바리케이드 위에서는 이동 24%. 1.6에서 적은 그 위에서도 멈춰 쏠 수 있지만, 미로는 암벽으로 막혀 사대가 안 보이므로 영향이 없습니다. 장애물은 경로 비용이라 늘릴수록 우회 동기가 커집니다. 현재 양으로 100% 킬존 경유</td></tr>
-      <tr><td>7</td><td>1명씩 들어오는 입구</td><td>폭 1 입구 (171,179), 문 없음</td><td>미로 마지막 16칸이 폭 1 직선. 문은 막힌 칸 비용이 되어 우회 동기가 됩니다</td></tr>
+      <tr><td>7</td><td>1명씩 들어오는 입구</td><td>폭 1 입구 (171,179), 문 없음</td><td>입구 직전에서 북으로 꺾어(도그레그) 암반이 사격각을 자릅니다. 사대가 보이는 미로 칸은 입구 포함 3칸뿐이고, 사대 21칸 모두가 되쏠 수 있습니다. 문은 막힌 칸 비용이 되어 우회 동기가 됩니다</td></tr>
       <tr><td>6</td><td>사로 겸 개활지</td><td>16×7, 가구·저장 금지</td><td>사대 21칸 모두에서 입구와 사로 100% 가시(V10). 적은 엄폐 없는 16칸을 건넙니다</td></tr>
       <tr><td>5</td><td>사대</td><td>3×7=21칸, 모래주머니 x=154</td><td>엄폐는 인접해야 유효 → 사수는 x=153. <span class="fix">사대 포탑 없음.</span> 2기만 둬도 똑똑한 유형 0%</td></tr>
       <tr><td>4</td><td>폭발물 방폭문</td><td>D1 (151,183) → U자 전실 → D2 (152,185)</td><td>폭발은 폭심에서 보이는 칸만 피해. 닫힌 문은 막고 열린 문은 못 막습니다. 두 문이 다 열려도 직선 0개(V9, 20,440개 검사)</td></tr>
@@ -362,7 +362,7 @@ const thinCells = [];
 for (let z = 0; z < N; z++) for (let x = 0; x < N; x++) if (D.roof[z][x] === '3') thinCells.push([x,z]);
 
 /* ---------- 분류·색 ---------- */
-const GROUP = {MZT:'def',MZA:'def',MZ1:'def',MZB:'def',MZ2:'def',MZC:'def',LR:'def',V:'def',WR:'def',FRZ:'food',KIT:'food',HYD1:'food',HYD2:'food',
+const GROUP = {MZT:'def',MZA:'def',MZ1:'def',MZB:'def',MZ2:'def',MZC:'def',MZD:'def',MZE:'def',LR:'def',V:'def',WR:'def',FRZ:'food',KIT:'food',HYD1:'food',HYD2:'food',
   HALL:'life',BC:'bed',ER:'med',PRIS:'med',WS:'prod',STO:'prod',LAB:'prod',MECH:'prod',BAT:'power',CONT:'special'};
 const GCOL = {def:'#D04A3C',food:'#5FAEE0',life:'#EBCB78',med:'#78CC96',prod:'#C79668',power:'#F2DE4A',
   special:'#A452B4',corr:'#E2E2DC',bed:'#F0B9CF'};
@@ -503,7 +503,7 @@ $('#legend').innerHTML = Object.entries(GNAME).map(([k,n]) => `<span><i class="s
    <span><i class="sw" style="background:#FF8C00;border-radius:50%"></i>발전·박격포·미끼</span><span><i class="sw" style="background:transparent;border:2px solid #FF3B3B"></i>특수 지형</span>`;
 const CHECKS = [['V1','겹침·벽 누락·문 연결 0건'],['V2','킬존을 막으면 외부→내부 경로 0'],['V3','모든 내부 공간이 외부와 연결'],
   ['V4','용도 없는 굴착 칸 0 (기존 굴착 65칸 되메움)'],['V5','야외 시설이 암반·산지붕 위에 없음'],['V6','내부 100% 두꺼운 산 지붕 (진입 터널 제외)'],['V7','1단계 공사 중간에도 단일 출입구'],
-  ['V8','층 순서 강제: D1·근접 문을 막으면 안쪽 도달 불가'],['V9','방폭문이 다 열려도 사로→대기실·응급실 직선 0 (20,440개)'],['V10','사대 21칸 모두 입구 가시, 사로 가시율 100%'],['V11','미로는 지름길 없는 외길 43칸']];
+  ['V8','층 순서 강제: D1·근접 문을 막으면 안쪽 도달 불가'],['V9','방폭문이 다 열려도 사로→대기실·응급실 직선 0 (20,440개)'],['V10','사대 21칸 모두 입구 가시, 사로 가시율 100%'],['V11','미로는 지름길 없는 외길 43칸'],['V12','킬존(미로·모래주머니 앞 사로)→내부 공간 암반 최소 5칸(기준 4)']];
 const ok = (L.problems||[]).length === 0;
 $('#checklist').innerHTML = CHECKS.map(([k,t]) => `<div class="check"><span class="mark">${ok?'통과':'실패'}</span><span><b class="mono">${k}</b> ${t}</span></div>`).join('');
 $('#spaceRows').innerHTML = L.spaces.map(s => { const [a,b,c,d] = s.rect;
