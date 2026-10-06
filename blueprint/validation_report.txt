@@ -1,52 +1,59 @@
 == 검증 ==
 문제: 없음
-신규 채굴 1444칸 (단계별 {1: 198, 2: 967, 3: 279}), 되메움 61칸, 광맥 {'MineableComponentsIndustrial': 15, 'MineableSteel': 37}
+신규 채굴 1479칸 (단계별 {1: 285, 2: 954, 3: 240}), 되메움 65칸, 광맥 {'MineableComponentsIndustrial': 8, 'MineableSteel': 36, 'MineableGold': 2}
 == 동선(걸음) ==
-  가까운 침실→대회당: 34
-  가장 먼 침실→대회당: 54
+  가까운 침실→대회당: 31
+  가장 먼 침실→대회당: 39
   주방→냉동고: 11
-  냉동고→대회당: 17
   수경1→주방: 9
-  수경2→냉동고: 32
-  킬박스→병원: 23
-  작업장→창고: 14
-  연구실→창고: 22
-  가장 먼 침실→방어선: 67
-  병원→감옥: 36
-  가장 가까운 침실→격리동(멀수록 좋음): 69
+  사대→응급실(부상자 후송): 29
+  대기실→사대(투입): 20
+  가장 먼 침실→대기실(소집): 43
+  작업장→창고: 17
+  주방→대회당(식사 보충): 61
+  응급실→감옥: 40
+  가장 가까운 침실→격리동(멀수록 좋음): 75
 == 방별 ==
-  MOUTH {'name': '입구 터널', 'size': '1x6', 'cells': 6, 'mine': 6, 'existing': 0, 'thick_pct': 50, 'rock_cover': 1, 'infest_cells': 3, 'bypass_dig': 1}
-  KB {'name': '킬박스 겸 현관', 'size': '15x8', 'cells': 120, 'mine': 120, 'existing': 0, 'thick_pct': 100, 'rock_cover': 6, 'infest_cells': 120, 'bypass_dig': 7}
-  AIR {'name': '에어록', 'size': '1x1', 'cells': 1, 'mine': 1, 'existing': 0, 'thick_pct': 100, 'rock_cover': 21, 'infest_cells': 1, 'bypass_dig': 10}
-  AIRC {'name': '에어록 연결칸', 'size': '1x1', 'cells': 1, 'mine': 1, 'existing': 0, 'thick_pct': 100, 'rock_cover': 23, 'infest_cells': 1, 'bypass_dig': 9}
-  M1W {'name': '주 통로 서', 'size': '11x1', 'cells': 11, 'mine': 11, 'existing': 0, 'thick_pct': 100, 'rock_cover': 26, 'infest_cells': 11, 'bypass_dig': 8}
-  M1C {'name': '주 통로 중앙', 'size': '16x1', 'cells': 16, 'mine': 15, 'existing': 1, 'thick_pct': 100, 'rock_cover': 22, 'infest_cells': 16, 'bypass_dig': 8}
-  M1E {'name': '주 통로 동', 'size': '33x1', 'cells': 33, 'mine': 33, 'existing': 0, 'thick_pct': 100, 'rock_cover': 18, 'infest_cells': 33, 'bypass_dig': 8}
-  TA {'name': '식당-냉동고 통로', 'size': '1x12', 'cells': 12, 'mine': 0, 'existing': 12, 'thick_pct': 100, 'rock_cover': 10, 'infest_cells': 12, 'bypass_dig': 8}
-  TB {'name': '서비스 통로', 'size': '1x25', 'cells': 25, 'mine': 0, 'existing': 25, 'thick_pct': 100, 'rock_cover': 38, 'infest_cells': 25, 'bypass_dig': 8}
-  C2 {'name': '침실 복도', 'size': '24x1', 'cells': 24, 'mine': 24, 'existing': 0, 'thick_pct': 100, 'rock_cover': 27, 'infest_cells': 24, 'bypass_dig': 9}
-  BC {'name': '부부 침실', 'size': '6x5', 'cells': 30, 'mine': 30, 'existing': 0, 'thick_pct': 100, 'rock_cover': 58, 'infest_cells': 30, 'bypass_dig': 9}
-  FRZ {'name': '냉동고', 'size': '11x11', 'cells': 121, 'mine': 0, 'existing': 121, 'thick_pct': 100, 'rock_cover': 10, 'infest_cells': 0, 'bypass_dig': 9}
-  HALL {'name': '대회당', 'size': '17x11', 'cells': 187, 'mine': 66, 'existing': 121, 'thick_pct': 100, 'rock_cover': 7, 'infest_cells': 187, 'bypass_dig': 7}
-  KIT {'name': '주방', 'size': '11x5', 'cells': 55, 'mine': 55, 'existing': 0, 'thick_pct': 100, 'rock_cover': 97, 'infest_cells': 55, 'bypass_dig': 9}
-  HYD1 {'name': '수경재배실 1', 'size': '11x11', 'cells': 121, 'mine': 121, 'existing': 0, 'thick_pct': 100, 'rock_cover': 85, 'infest_cells': 121, 'bypass_dig': 9}
-  HYD2 {'name': '수경재배실 2', 'size': '11x11', 'cells': 121, 'mine': 121, 'existing': 0, 'thick_pct': 100, 'rock_cover': 76, 'infest_cells': 121, 'bypass_dig': 9}
-  HOSP {'name': '병원', 'size': '9x8', 'cells': 72, 'mine': 72, 'existing': 0, 'thick_pct': 100, 'rock_cover': 94, 'infest_cells': 72, 'bypass_dig': 10}
-  C3 {'name': '동쪽 복도', 'size': '1x18', 'cells': 18, 'mine': 18, 'existing': 0, 'thick_pct': 100, 'rock_cover': 73, 'infest_cells': 18, 'bypass_dig': 9}
-  PRIS {'name': '감옥', 'size': '7x7', 'cells': 49, 'mine': 49, 'existing': 0, 'thick_pct': 100, 'rock_cover': 10, 'infest_cells': 49, 'bypass_dig': 8}
-  WS {'name': '작업장', 'size': '10x8', 'cells': 80, 'mine': 80, 'existing': 0, 'thick_pct': 100, 'rock_cover': 7, 'infest_cells': 80, 'bypass_dig': 7}
-  STO {'name': '중앙 창고', 'size': '15x11', 'cells': 165, 'mine': 165, 'existing': 0, 'thick_pct': 100, 'rock_cover': 44, 'infest_cells': 165, 'bypass_dig': 9}
-  LAB {'name': '연구실', 'size': '9x7', 'cells': 63, 'mine': 63, 'existing': 0, 'thick_pct': 100, 'rock_cover': 76, 'infest_cells': 63, 'bypass_dig': 10}
-  BAT {'name': '배터리·비상발전실', 'size': '5x7', 'cells': 35, 'mine': 35, 'existing': 0, 'thick_pct': 100, 'rock_cover': 45, 'infest_cells': 35, 'bypass_dig': 10}
-  MECH {'name': '메카 정비소', 'size': '11x7', 'cells': 77, 'mine': 77, 'existing': 0, 'thick_pct': 100, 'rock_cover': 59, 'infest_cells': 77, 'bypass_dig': 10}
-  CONT {'name': '격리동', 'size': '9x9', 'cells': 81, 'mine': 81, 'existing': 0, 'thick_pct': 100, 'rock_cover': 22, 'infest_cells': 81, 'bypass_dig': 9}
-  B11 {'name': '침실 1', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 21, 'infest_cells': 20, 'bypass_dig': 10}
-  B12 {'name': '침실 2', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 21, 'infest_cells': 20, 'bypass_dig': 10}
-  B13 {'name': '침실 3', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 25, 'infest_cells': 20, 'bypass_dig': 10}
-  B14 {'name': '침실 4', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 30, 'infest_cells': 20, 'bypass_dig': 10}
-  B15 {'name': '침실 5', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 35, 'infest_cells': 20, 'bypass_dig': 9}
-  B21 {'name': '침실 6', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 34, 'infest_cells': 20, 'bypass_dig': 10}
-  B22 {'name': '침실 7', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 45, 'infest_cells': 20, 'bypass_dig': 10}
-  B23 {'name': '침실 8', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 50, 'infest_cells': 20, 'bypass_dig': 10}
-  B24 {'name': '침실 9', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 55, 'infest_cells': 20, 'bypass_dig': 10}
-  B25 {'name': '침실 10', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 60, 'infest_cells': 20, 'bypass_dig': 9}
+  MZT {'name': '미로: 진입 터널', 'size': '1x5', 'cells': 5, 'mine': 5, 'existing': 0, 'thick_pct': 40, 'rock_cover': 1, 'infest_cells': 2, 'bypass_dig': 1}
+  MZA {'name': '미로: 1구간', 'size': '9x1', 'cells': 9, 'mine': 9, 'existing': 0, 'thick_pct': 100, 'rock_cover': 3, 'infest_cells': 9, 'bypass_dig': 4}
+  MZ1 {'name': '미로: 굽이 1', 'size': '1x1', 'cells': 1, 'mine': 1, 'existing': 0, 'thick_pct': 100, 'rock_cover': 5, 'infest_cells': 1, 'bypass_dig': 5}
+  MZB {'name': '미로: 2구간', 'size': '9x1', 'cells': 9, 'mine': 9, 'existing': 0, 'thick_pct': 100, 'rock_cover': 6, 'infest_cells': 9, 'bypass_dig': 6}
+  MZ2 {'name': '미로: 굽이 2', 'size': '1x3', 'cells': 3, 'mine': 3, 'existing': 0, 'thick_pct': 100, 'rock_cover': 10, 'infest_cells': 3, 'bypass_dig': 9}
+  MZC {'name': '미로: 3구간 → 입구', 'size': '16x1', 'cells': 16, 'mine': 16, 'existing': 0, 'thick_pct': 100, 'rock_cover': 7, 'infest_cells': 16, 'bypass_dig': 8}
+  LR {'name': '사로·개활지 + 사대', 'size': '20x7', 'cells': 140, 'mine': 140, 'existing': 0, 'thick_pct': 100, 'rock_cover': 5, 'infest_cells': 140, 'bypass_dig': 6}
+  V {'name': '방폭 전실(U자)', 'size': '1x2', 'cells': 2, 'mine': 2, 'existing': 0, 'thick_pct': 100, 'rock_cover': 19, 'infest_cells': 2, 'bypass_dig': 11}
+  WR {'name': '전투 대기실·무기고', 'size': '8x3', 'cells': 24, 'mine': 24, 'existing': 0, 'thick_pct': 100, 'rock_cover': 23, 'infest_cells': 24, 'bypass_dig': 11}
+  ER {'name': '응급실(병원)', 'size': '9x8', 'cells': 72, 'mine': 72, 'existing': 0, 'thick_pct': 100, 'rock_cover': 107, 'infest_cells': 72, 'bypass_dig': 11}
+  M1W {'name': '주 통로 서', 'size': '11x1', 'cells': 11, 'mine': 11, 'existing': 0, 'thick_pct': 100, 'rock_cover': 23, 'infest_cells': 11, 'bypass_dig': 10}
+  M1C {'name': '주 통로 중앙(근접 방어선)', 'size': '22x1', 'cells': 22, 'mine': 21, 'existing': 1, 'thick_pct': 100, 'rock_cover': 22, 'infest_cells': 22, 'bypass_dig': 10}
+  M1E {'name': '주 통로 동', 'size': '28x1', 'cells': 28, 'mine': 28, 'existing': 0, 'thick_pct': 100, 'rock_cover': 22, 'infest_cells': 28, 'bypass_dig': 10}
+  TA {'name': '창고-냉동고 통로', 'size': '1x7', 'cells': 7, 'mine': 0, 'existing': 7, 'thick_pct': 100, 'rock_cover': 15, 'infest_cells': 7, 'bypass_dig': 10}
+  TB {'name': '서비스 통로', 'size': '1x30', 'cells': 30, 'mine': 4, 'existing': 26, 'thick_pct': 100, 'rock_cover': 42, 'infest_cells': 30, 'bypass_dig': 10}
+  C2 {'name': '배터리실 복도', 'size': '6x1', 'cells': 6, 'mine': 6, 'existing': 0, 'thick_pct': 100, 'rock_cover': 36, 'infest_cells': 6, 'bypass_dig': 11}
+  C3 {'name': '동쪽 복도', 'size': '1x30', 'cells': 30, 'mine': 30, 'existing': 0, 'thick_pct': 100, 'rock_cover': 48, 'infest_cells': 30, 'bypass_dig': 11}
+  CV {'name': '침실-대회당 연결 복도', 'size': '1x14', 'cells': 14, 'mine': 14, 'existing': 0, 'thick_pct': 100, 'rock_cover': 30, 'infest_cells': 14, 'bypass_dig': 11}
+  CB {'name': '침실 복도', 'size': '26x1', 'cells': 26, 'mine': 26, 'existing': 0, 'thick_pct': 100, 'rock_cover': 29, 'infest_cells': 26, 'bypass_dig': 11}
+  FRZ {'name': '냉동고', 'size': '11x11', 'cells': 121, 'mine': 0, 'existing': 121, 'thick_pct': 100, 'rock_cover': 10, 'infest_cells': 0, 'bypass_dig': 10}
+  KIT {'name': '주방', 'size': '11x5', 'cells': 55, 'mine': 55, 'existing': 0, 'thick_pct': 100, 'rock_cover': 110, 'infest_cells': 55, 'bypass_dig': 11}
+  HYD1 {'name': '수경재배실 1', 'size': '11x11', 'cells': 121, 'mine': 121, 'existing': 0, 'thick_pct': 100, 'rock_cover': 86, 'infest_cells': 121, 'bypass_dig': 11}
+  HYD2 {'name': '수경재배실 2', 'size': '11x11', 'cells': 121, 'mine': 121, 'existing': 0, 'thick_pct': 100, 'rock_cover': 74, 'infest_cells': 121, 'bypass_dig': 11}
+  STO {'name': '중앙 창고', 'size': '11x11', 'cells': 121, 'mine': 0, 'existing': 121, 'thick_pct': 100, 'rock_cover': 9, 'infest_cells': 121, 'bypass_dig': 9}
+  BC {'name': '부부 침실', 'size': '6x5', 'cells': 30, 'mine': 30, 'existing': 0, 'thick_pct': 100, 'rock_cover': None, 'infest_cells': 30, 'bypass_dig': 12}
+  CH {'name': '대회당 복도', 'size': '7x1', 'cells': 7, 'mine': 7, 'existing': 0, 'thick_pct': 100, 'rock_cover': 76, 'infest_cells': 7, 'bypass_dig': 11}
+  HALL {'name': '대회당', 'size': '17x11', 'cells': 187, 'mine': 187, 'existing': 0, 'thick_pct': 100, 'rock_cover': 48, 'infest_cells': 187, 'bypass_dig': 12}
+  PRIS {'name': '감옥', 'size': '9x6', 'cells': 54, 'mine': 54, 'existing': 0, 'thick_pct': 100, 'rock_cover': 92, 'infest_cells': 54, 'bypass_dig': 12}
+  LAB {'name': '연구실', 'size': '9x7', 'cells': 63, 'mine': 63, 'existing': 0, 'thick_pct': 100, 'rock_cover': 99, 'infest_cells': 63, 'bypass_dig': 12}
+  WS {'name': '작업장', 'size': '11x6', 'cells': 66, 'mine': 66, 'existing': 0, 'thick_pct': 100, 'rock_cover': 24, 'infest_cells': 66, 'bypass_dig': 11}
+  BAT {'name': '배터리·비상발전실', 'size': '5x7', 'cells': 35, 'mine': 35, 'existing': 0, 'thick_pct': 100, 'rock_cover': 39, 'infest_cells': 35, 'bypass_dig': 11}
+  MECH {'name': '메카 정비소', 'size': '9x7', 'cells': 63, 'mine': 63, 'existing': 0, 'thick_pct': 100, 'rock_cover': 84, 'infest_cells': 63, 'bypass_dig': 12}
+  CONT {'name': '격리동', 'size': '8x7', 'cells': 56, 'mine': 56, 'existing': 0, 'thick_pct': 100, 'rock_cover': 52, 'infest_cells': 56, 'bypass_dig': 11}
+  B11 {'name': '침실 1', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 44, 'infest_cells': 20, 'bypass_dig': 12}
+  B12 {'name': '침실 2', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 39, 'infest_cells': 20, 'bypass_dig': 12}
+  B13 {'name': '침실 3', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 34, 'infest_cells': 20, 'bypass_dig': 12}
+  B14 {'name': '침실 4', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 29, 'infest_cells': 20, 'bypass_dig': 12}
+  B15 {'name': '침실 5', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': 24, 'infest_cells': 20, 'bypass_dig': 12}
+  B21 {'name': '침실 6', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': None, 'infest_cells': 20, 'bypass_dig': 12}
+  B22 {'name': '침실 7', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': None, 'infest_cells': 20, 'bypass_dig': 12}
+  B23 {'name': '침실 8', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': None, 'infest_cells': 20, 'bypass_dig': 12}
+  B24 {'name': '침실 9', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': None, 'infest_cells': 20, 'bypass_dig': 12}
+  B25 {'name': '침실 10', 'size': '4x5', 'cells': 20, 'mine': 20, 'existing': 0, 'thick_pct': 100, 'rock_cover': None, 'infest_cells': 20, 'bypass_dig': 12}
